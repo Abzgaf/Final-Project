@@ -108,7 +108,7 @@ public class Dashboard extends AppCompatActivity {
         growth_pic = findViewById(R.id.growth_pic);
         growth_text = findViewById(R.id.growth_text);
         ar_pic = findViewById(R.id.ar_pic);
-        ar_text = findViewById(R.id.ar_text);//hthth
+        ar_text = findViewById(R.id.ar_text);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
