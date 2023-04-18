@@ -5,8 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +54,39 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
         holder.baby_name_input.setText(String.valueOf(baby_name.get(position)));
         holder.baby_age_input.setText(String.valueOf(baby_age.get(position)));
         holder.baby_gender_input.setText(String.valueOf(baby_gender.get(position)));
+        holder.menu_dropdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu menu = new PopupMenu(context, view);
+                menu.getMenuInflater().inflate(R.menu.menu, menu.getMenu());
+                menu.show();
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.edit:
+
+                                Intent intent = new Intent(context, UpdateActivity.class);
+                                intent.putExtra("id", String.valueOf(id.get(position)));
+                                intent.putExtra("name", String.valueOf(baby_name.get(position)));
+                                intent.putExtra("age", String.valueOf(baby_age.get(position)));
+                                intent.putExtra("gender", String.valueOf(baby_gender.get(position)));
+                                activity.startActivityForResult(intent, 1);
+                                break;
+                            case R.id.delete:
+                                Toast.makeText(view.getContext(), "Delete Clicked", Toast.LENGTH_SHORT).show();
+                                break;
+
+                              /*  Intent intent1 = new Intent(context, DeleteActivity.class);
+                                intent1.putExtra("id", String.valueOf(id.get(position)));
+                                intent1.putExtra("name", String.valueOf(baby_name.get(position)));
+                                intent1.putExtra("age", String.valueOf(baby_age.get(position)));*/
+                        }
+                        return true;
+                    }
+                });
+            }
+        });
         holder.mainProfileListLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +98,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
                 intent.putExtra("age", String.valueOf(baby_age.get(position)));
                 intent.putExtra("gender", String.valueOf(baby_gender.get(position)));
                 activity.startActivityForResult(intent, 1);
+
 
             }
         });
@@ -87,6 +124,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView id, baby_name_input, baby_age_input, baby_gender_input;
+        ImageView menu_dropdown;
         ConstraintLayout mainProfileListLayout;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -95,6 +133,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
             baby_name_input = itemView.findViewById(R.id.baby_name_input);
             baby_age_input = itemView.findViewById(R.id.baby_age_input);
             baby_gender_input = itemView.findViewById(R.id.baby_gender_input);
+            menu_dropdown = itemView.findViewById(R.id.menu_dropdown);
             mainProfileListLayout = itemView.findViewById(R.id.mainProfileListLayout);
 
 

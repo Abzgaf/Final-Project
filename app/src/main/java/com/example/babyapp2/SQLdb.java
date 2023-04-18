@@ -58,7 +58,7 @@ public class SQLdb extends SQLiteOpenHelper {
 
     private Context context;
     private static final String TABLE_NAME = "login_dets";
-    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NAME = "username";
     private static final String COLUMN_PASS = "password";
 
@@ -77,7 +77,7 @@ public class SQLdb extends SQLiteOpenHelper {
 
 
 
-    public SQLdb(@Nullable Context context) {
+    SQLdb(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
 
@@ -214,7 +214,21 @@ public class SQLdb extends SQLiteOpenHelper {
         }
     }
 
+    void updateTable(String row_id, String name, int age, String gender) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
 
+        values.put(COLUMN_NAME2, name);
+        values.put(COLUMN_AGE, age);
+        values.put(COLUMN_GENDER, gender);
 
-
+        long result = db.update(TABLE_NAME2, values, "_id=?", new String[]{row_id});
+        if (result == -1) {
+            Toast.makeText(context, "Failed to update description", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Description updated", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
+
+

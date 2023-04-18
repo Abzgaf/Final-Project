@@ -38,7 +38,7 @@
         android:id="@+id/baby_gender"
         android:layout_width="176dp"
         android:layout_height="50dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="16dp"
         android:drawableRight="@android:drawable/arrow_down_float"
         android:ems="10"
         android:hint="Enter baby's gender"

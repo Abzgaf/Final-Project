@@ -38,7 +38,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:text="Baby Name"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/id"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,15 +55,15 @@
 
             <TextView
                 android:id="@+id/baby_gender_input"
-                android:layout_width="76dp"
-                android:layout_height="61dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="1dp"
+                android:layout_width="78dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="M"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/baby_age_input"
+                app:layout_constraintTop_toBottomOf="@+id/baby_name_input" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -74,6 +74,17 @@
                 android:text="Age:"
                 app:layout_constraintStart_toEndOf="@+id/id"
                 app:layout_constraintTop_toBottomOf="@+id/baby_name_input" />
+
+            <ImageView
+                android:id="@+id/menu_dropdown"
+                android:layout_width="52dp"
+                android:layout_height="41dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_menu"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
