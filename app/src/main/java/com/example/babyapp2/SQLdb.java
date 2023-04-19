@@ -229,6 +229,12 @@ public class SQLdb extends SQLiteOpenHelper {
             Toast.makeText(context, "Description updated", Toast.LENGTH_SHORT).show();
         }
     }
+
+    void deleteRow(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME2, "_id=?", new String[]{x});
+
+    }
 }
 
 

@@ -3,13 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/edit"
+        android:id="@+id/Update"
         android:icon="@drawable/edit"
-        android:title="Edit"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/delete"
-        android:icon="@drawable/garbage"
-        android:title="Delete"
+        android:title="Update"
         app:showAsAction="ifRoom" />
 </menu>

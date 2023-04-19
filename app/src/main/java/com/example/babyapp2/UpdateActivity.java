@@ -1,5 +1,6 @@
 package com.example.babyapp2;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import static com.example.babyapp2.MainActivity.x;
@@ -21,7 +22,7 @@ public class UpdateActivity extends AppCompatActivity {
     EditText baby_name_upd;
     EditText baby_age_upd;
     TextView baby_gender_upd;
-    Button update_button;
+    Button update_button, delete_button;
 
     String id, baby_name, baby_gender;
     Integer baby_age;
@@ -41,7 +42,13 @@ public class UpdateActivity extends AppCompatActivity {
         baby_age_upd = findViewById(R.id.baby_age_upd);
         baby_gender_upd = findViewById(R.id.baby_gender_upd);
         update_button = findViewById(R.id.update_button);
+        delete_button = findViewById(R.id.delete_button);
         getSetData();
+
+        ActionBar ab = getSupportActionBar();
+        if(ab != null) {
+            ab.setTitle(baby_name);
+        }
         baby_gender_upd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +134,14 @@ public class UpdateActivity extends AppCompatActivity {
                         db.updateTable(id, baby_name, baby_age, baby_gender);
                         Intent intent = new Intent(UpdateActivity.this, BabyList.class);
                         startActivity(intent);
+                    }
+                });
+
+                delete_button.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
                     }
                 });
             }
