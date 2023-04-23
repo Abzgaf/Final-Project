@@ -1,14 +1,22 @@
 package com.example.babyapp2;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,6 +27,8 @@ public class BabyList extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton add;
+    ImageView cry_img;
+    TextView nodata_txt;
 
     SQLdb db;
     ArrayList<String> id;
@@ -35,6 +45,8 @@ public class BabyList extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         add = findViewById(R.id.add);
+        cry_img = findViewById(R.id.cry_img);
+        nodata_txt = findViewById(R.id.nodata_txt);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +77,8 @@ public class BabyList extends AppCompatActivity {
     void showData(){
         Cursor c = db.getProfileData();
         if(c.getCount() == 0){
-            Toast.makeText(this, "Table is empty", Toast.LENGTH_SHORT).show();
+            cry_img.setVisibility(View.VISIBLE);
+            nodata_txt.setVisibility(View.VISIBLE);
         }else{
             while (c.moveToNext()){
                 id.add(c.getString(0));
@@ -73,6 +86,46 @@ public class BabyList extends AppCompatActivity {
                 baby_age.add(c.getString(2));
                 baby_gender.add(c.getString(3));
             }
+            cry_img.setVisibility(View.GONE);
+            nodata_txt.setVisibility(View.GONE);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.m, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.delete_all){
+            deleteAllConfirmation();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    void deleteAllConfirmation(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(BabyList.this);
+        builder.setTitle("Delete All");
+        builder.setMessage("Are you sure you want to delete all baby records? ");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SQLdb db = new SQLdb(BabyList.this);
+                db.deleteAllNames();
+                recreate();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create().show();
+    }
+
 }

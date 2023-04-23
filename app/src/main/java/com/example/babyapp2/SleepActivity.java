@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -16,12 +17,14 @@ import android.widget.TextView;
 
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.ParseException;
@@ -40,7 +43,7 @@ public class SleepActivity extends AppCompatActivity {
     public Button stop;
     public Button diffBtn;
 
-    private BarChart mChart;
+    public LineChart chart1;
 
 
     @SuppressLint("MissingInflatedId")
@@ -54,6 +57,8 @@ public class SleepActivity extends AppCompatActivity {
         diff = findViewById(R.id.diff);
         start = findViewById(R.id.start);
         stop = findViewById(R.id.stop);
+        chart1 = findViewById(R.id.chart1);
+
 
 
 
@@ -108,9 +113,8 @@ public class SleepActivity extends AppCompatActivity {
                 diff.setText(diffResult);
             }
         });
-
-
     }
+
 
 
 

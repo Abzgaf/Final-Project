@@ -28,4 +28,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <ImageView
+        android:id="@+id/cry_img"
+        android:layout_width="161dp"
+        android:layout_height="167dp"
+        android:layout_marginTop="150dp"
+        android:alpha="0.1"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerView"
+        app:srcCompat="@drawable/crying" />
+
+    <TextView
+        android:id="@+id/nodata_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:text="No kids unfortunatly?......"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cry_img"
+        android:alpha="0.4"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

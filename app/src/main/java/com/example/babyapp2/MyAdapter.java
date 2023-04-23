@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -27,6 +29,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
     private ArrayList baby_age;
     private ArrayList baby_gender;
     Activity activity;
+    Animation animation;
+
 
     public static String x_babyName;
 
@@ -114,7 +118,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
             baby_gender_input = itemView.findViewById(R.id.baby_gender_input);
             menu_dropdown = itemView.findViewById(R.id.menu_dropdown);
             mainProfileListLayout = itemView.findViewById(R.id.mainProfileListLayout);
-
+            animation = AnimationUtils.loadAnimation(context, R.anim.animation);
+            mainProfileListLayout.setAnimation(animation);
 
         }
     }

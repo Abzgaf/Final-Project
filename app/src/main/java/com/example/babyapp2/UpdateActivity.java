@@ -49,6 +49,29 @@ public class UpdateActivity extends AppCompatActivity {
         if(ab != null) {
             ab.setTitle(baby_name);
         }
+        delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteConfirmation();
+
+            }
+        });
+
+        update_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLdb db = new SQLdb(UpdateActivity.this);
+                baby_name = baby_name_upd.getText().toString().trim();
+                baby_age = Integer.valueOf(baby_age_upd.getText().toString().trim());
+                baby_gender = baby_gender_upd.getText().toString().trim();
+                db.updateTable(id, baby_name, baby_age, baby_gender);
+                Intent intent = new Intent(UpdateActivity.this, BabyList.class);
+                startActivity(intent);
+            }
+        });
+
+
+
         baby_gender_upd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,27 +148,9 @@ public class UpdateActivity extends AppCompatActivity {
                 // show dialog
                 builder.show();
 
-
-
-                update_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SQLdb db = new SQLdb(UpdateActivity.this);
-                        db.updateTable(id, baby_name, baby_age, baby_gender);
-                        Intent intent = new Intent(UpdateActivity.this, BabyList.class);
-                        startActivity(intent);
-                    }
-                });
-
-                delete_button.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
             }
-            });
+        });
+
     }
 
     void getSetData() {
@@ -163,5 +168,27 @@ public class UpdateActivity extends AppCompatActivity {
         } else {
             Toast.makeText(UpdateActivity.this, "No Data", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    void deleteConfirmation(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(UpdateActivity.this);
+        builder.setTitle("Delete " + baby_name + " ?");
+        builder.setMessage("Are you sure you want to delete " + baby_name + "?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SQLdb db = new SQLdb(UpdateActivity.this);
+                db.deleteRow(id);
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create().show();
     }
 }
