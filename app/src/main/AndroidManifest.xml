@@ -18,6 +18,20 @@
         android:theme="@style/Theme.BabyApp2"
         tools:replace="android:label"
         tools:targetApi="31">
+        <activity
+            android:name=".DiaperHistory"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".DiaperAddActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -74,8 +88,8 @@
         </activity>
         <activity
             android:name=".UpdateActivity"
-            android:parentActivityName=".BabyList"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".BabyList">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

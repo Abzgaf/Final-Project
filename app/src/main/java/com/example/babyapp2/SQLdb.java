@@ -73,6 +73,11 @@ public class SQLdb extends SQLiteOpenHelper {
     private static final String COLUMN_X = "xValue";
     private static final String COLUMN_Y = "yValue";
 
+    private static final String TABLE_NAME4 = "diaper_tracker";
+    private static final String COLUMN_MATERIAL = "material";
+    private static final String COLUMN_POOP = "poop";
+    private static final String COLUMN_BATH= "bath_done";
+
 
 
 
@@ -110,6 +115,15 @@ public class SQLdb extends SQLiteOpenHelper {
                         COLUMN_Y + " INTEGER, " +
                         COLUMN_NAME2 + " TEXT);";
         db.execSQL(query3);
+
+        String query4 =
+                "CREATE TABLE " + TABLE_NAME4 +
+                        " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COLUMN_MATERIAL + " TEXT, " +
+                        COLUMN_POOP + " BOOLEAN, " +
+                        COLUMN_BATH + " BOOLEAN, " +
+                        COLUMN_PARENT_NAME + " TEXT);";
+        db.execSQL(query4);
 
 
     }
@@ -164,6 +178,22 @@ public class SQLdb extends SQLiteOpenHelper {
             Toast.makeText(context, "Failed to add tracker data", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Tracker data created", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void addDiaperTrackerData(String material, boolean poop, boolean bath, String x_babyname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_MATERIAL, material);
+        values.put(COLUMN_POOP, poop);
+        values.put(COLUMN_BATH, bath);
+        values.put(COLUMN_PARENT_NAME, x_babyname);
+        long result = db.insert(TABLE_NAME4, null, values);
+        if (result == -1) {
+            Toast.makeText(context, "Failed to add diaper description", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Diaper description added", Toast.LENGTH_SHORT).show();
         }
     }
 

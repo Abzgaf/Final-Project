@@ -83,6 +83,16 @@ public class Dashboard extends AppCompatActivity {
         });
         diaper_pic = findViewById(R.id.diaper_pic);
         diaper_text = findViewById(R.id.diaper_text);
+        c2 = findViewById(R.id.c2);
+
+        c2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, DiaperAddActivity.class);
+                startActivity(intent);
+            }
+        });
         feed_pic = findViewById(R.id.feed_pic);
         feed_text = findViewById(R.id.feed_text);
         c3 = findViewById(R.id.c3);

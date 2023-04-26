@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -24,7 +26,12 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.ParseException;
@@ -43,6 +50,9 @@ public class SleepActivity extends AppCompatActivity {
     public Button stop;
     public Button diffBtn;
 
+    long startTime = 0;
+    long stopTime = 0;
+
     public LineChart chart1;
 
 
@@ -59,6 +69,9 @@ public class SleepActivity extends AppCompatActivity {
         stop = findViewById(R.id.stop);
         chart1 = findViewById(R.id.chart1);
 
+        chart1.setDragEnabled(true);
+        chart1.setScaleEnabled(true);
+        chart1.getDescription().setEnabled(false);
 
 
 
@@ -71,6 +84,7 @@ public class SleepActivity extends AppCompatActivity {
                 SimpleDateFormat sdf1=new SimpleDateFormat("HH:mm:ss");
                 final String currentDateTimeString = sdf1.format(d);
                 time1.setText(currentDateTimeString);
+                startTime = System.currentTimeMillis();
 
             }
         });
@@ -89,6 +103,9 @@ public class SleepActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+
+                stopTime = System.currentTimeMillis();
+                populateChart(startTime, stopTime);
 
             }
         });
@@ -114,6 +131,27 @@ public class SleepActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void populateChart(long startTime, long stopTime) {
+        // Calculate difference between start and stop times
+        long difference = stopTime - startTime;
+
+        // Create data set with difference as y-axis values and time as x-axis values
+        List<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(startTime, difference));
+        entries.add(new Entry(stopTime, 0));
+        LineDataSet dataSet = new LineDataSet(entries, "Sleep Duration");
+        dataSet.setLineWidth(2f);
+        dataSet.setCircleRadius(4f);
+        dataSet.setColor(Color.BLUE);
+        dataSet.setCircleColor(Color.BLUE);
+
+        // Add data set to chart
+        LineData lineData = new LineData(dataSet);
+        chart1.setData(lineData);
+        chart1.invalidate();
+    }
+
 
 
 
