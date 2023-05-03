@@ -54,6 +54,8 @@ public class SleepActivity extends AppCompatActivity {
     long stopTime = 0;
 
     public LineChart chart1;
+    private List<Entry> entries;
+    private LineDataSet dataSet;
 
 
     @SuppressLint("MissingInflatedId")
@@ -72,10 +74,11 @@ public class SleepActivity extends AppCompatActivity {
         chart1.setDragEnabled(true);
         chart1.setScaleEnabled(true);
         chart1.getDescription().setEnabled(false);
-
-
-
+        entries = new ArrayList<>();
         diffBtn = findViewById(R.id.diffBtn);
+
+
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,8 +107,15 @@ public class SleepActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+
+
+                long difference = (stopTime - startTime)/1000;
+                entries.add(new Entry(entries.size(), difference));
                 stopTime = System.currentTimeMillis();
-                populateChart(startTime, stopTime);
+                //populateChart();
+                setupChart();
+                updateChart();
+
 
             }
         });
@@ -132,9 +142,63 @@ public class SleepActivity extends AppCompatActivity {
         });
     }
 
-    private void populateChart(long startTime, long stopTime) {
+    private void setupChart() {
+        chart1.setDrawGridBackground(false);
+        chart1.getDescription().setEnabled(false);
+
+        dataSet = new LineDataSet(entries, "Time Results");
+        dataSet.setColor(Color.BLUE);
+        dataSet.setLineWidth(2f);
+        dataSet.setCircleColor(Color.BLUE);
+        dataSet.setCircleRadius(4f);
+        dataSet.setDrawCircleHole(false);
+        dataSet.setDrawValues(false);
+
+        List<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataSet);
+
+        LineData lineData = new LineData(dataSets);
+        chart1.setData(lineData);
+        chart1.invalidate();
+    }
+
+    private void updateChart() {
+        LineData lineData = chart1.getLineData();
+        if (lineData != null) {
+            lineData.notifyDataChanged();
+            chart1.notifyDataSetChanged();
+            chart1.invalidate();
+        }
+
+        List<Entry> timeDifferences = new ArrayList<>();
+        for (int i = 1; i < entries.size(); i++) {
+            float previousTime = entries.get(i - 1).getY();
+            float currentTime = entries.get(i).getY();
+            float timeDifference = currentTime - previousTime;
+            timeDifferences.add(new Entry(i, timeDifference));
+        }
+
+        LineDataSet timeDifferenceDataSet = new LineDataSet(timeDifferences, "Time Differences");
+        timeDifferenceDataSet.setColor(Color.RED);
+        timeDifferenceDataSet.setLineWidth(2f);
+        timeDifferenceDataSet.setCircleColor(Color.RED);
+        timeDifferenceDataSet.setCircleRadius(4f);
+        timeDifferenceDataSet.setDrawCircleHole(false);
+        timeDifferenceDataSet.setDrawValues(false);
+
+        List<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataSet);  // Original time results dataset
+        dataSets.add(timeDifferenceDataSet);  // Time differences dataset
+
+        LineData updatedLineData = new LineData(dataSets);
+        chart1.setData(updatedLineData);
+        chart1.invalidate();
+
+    }
+
+    /*private void populateChart() {
         // Calculate difference between start and stop times
-        long difference = stopTime - startTime;
+        long difference = (stopTime - startTime)/1000;
 
         // Create data set with difference as y-axis values and time as x-axis values
         List<Entry> entries = new ArrayList<>();
@@ -150,7 +214,7 @@ public class SleepActivity extends AppCompatActivity {
         LineData lineData = new LineData(dataSet);
         chart1.setData(lineData);
         chart1.invalidate();
-    }
+    }*/
 
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -17,17 +17,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BabyApp2"
         tools:replace="android:label"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name=".GrowthTracker"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".DiaperHistory"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".DiaperAddActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -53,35 +60,35 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".SavedWayPointsActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".GPSTracker"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".FoodActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".SleepActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Dashboard"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -89,7 +96,7 @@
         <activity
             android:name=".UpdateActivity"
             android:exported="false"
-            android:parentActivityName=".BabyList">
+            android:parentActivityName=".BabyList" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -98,14 +105,14 @@
             android:name=".AddingActivity"
             android:exported="false"
             android:label="Add child"
-            android:parentActivityName=".BabyList">
+            android:parentActivityName=".BabyList" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".BabyList"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -113,7 +120,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="Junyers">
+            android:label="Junyers" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
