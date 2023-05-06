@@ -1,61 +1,31 @@
 package com.example.babyapp2;
 import static com.example.babyapp2.MainActivity.x;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
 public class SQLdb extends SQLiteOpenHelper {
 
-    Connection con;
-    String db_uname;
-    String db_pass;
-    String db_ip;
-    String db_port;
-    String database;
-
-    public Connection connectionClass(){
-        db_ip = "172.1.1.0";
-        database = "BabyApp";
-        db_uname = "sa";
-        db_pass = "finalproject";
-        db_port = "1433";
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        Connection connection = null;
-        String ConnectionURL = null;
-
-        try{
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            ConnectionURL = "jdbc:jtds:sqlserver://"+ db_ip + ":" + db_port + ";"+ "databasename=" + database+ ";user="+ db_uname +";pass="+db_pass+";";
-            connection = DriverManager.getConnection(ConnectionURL);
-        }catch ( Exception ex){
-            Log.e("error ", ex.getMessage());
-
-        }
-        return connection;
-
-    }
-
     private static final String DATABASE_NAME = "BabyApp.db";
     private static final int DATABASE_VERSION = 1;
 
 
+
+    private final ArrayList<FoodClass> foodList = new ArrayList<>();
     private Context context;
     private static final String TABLE_NAME = "login_dets";
     private static final String COLUMN_ID = "_id";
@@ -78,6 +48,12 @@ public class SQLdb extends SQLiteOpenHelper {
     private static final String COLUMN_POOP = "poop";
     private static final String COLUMN_BATH= "bath_done";
 
+
+    public static final String TABLE_NAME5 = "food_tracker";
+    public static final String COLUMN_FOOD = "name";
+    public static final String COLUMN_CAL = "calories";
+    public static final String COLUMN_DATE = "recorddate";
+    public static final String FOOD_ROW_ID = "food_row_id";
 
 
 
@@ -125,6 +101,15 @@ public class SQLdb extends SQLiteOpenHelper {
                         COLUMN_PARENT_NAME + " TEXT);";
         db.execSQL(query4);
 
+        String query5 =
+                "CREATE TABLE " + TABLE_NAME5 +
+                            " (" + FOOD_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COLUMN_FOOD + " TEXT, " +
+                        COLUMN_CAL + " INT, " +
+                        COLUMN_DATE + " LONG, " +
+                        COLUMN_PARENT_NAME + " TEXT);";
+        db.execSQL(query5);
+
 
     }
 
@@ -133,6 +118,8 @@ public class SQLdb extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
         onCreate(db);
     }
 
@@ -197,6 +184,28 @@ public class SQLdb extends SQLiteOpenHelper {
         }
     }
 
+    void addFoodTrackerData(FoodClass food, String x_babyname){
+        SQLiteDatabase dba = this.getWritableDatabase();
+
+        //key value pair object//
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FOOD, food.getFoodName());
+        values.put(COLUMN_CAL, food.getCalories());
+        //ask Android OS to give date//
+        values.put(COLUMN_DATE, System.currentTimeMillis());
+        values.put(COLUMN_PARENT_NAME, x_babyname);
+
+        //inserting food into our table//
+        dba.insert(TABLE_NAME5, null, values);
+
+        //checking if food object has been added to the db//
+        Log.v("Added Food item", "It worked!!");
+
+        //close db//
+        dba.close();
+
+    }
+
     public Boolean checkusername(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from login_dets where username = ?", new String[]{username});
@@ -219,6 +228,30 @@ public class SQLdb extends SQLiteOpenHelper {
         return c;
     }
 
+    public int getTotalFoodItems() {
+
+        int totalItems = 0;
+
+        //selecting all from our table//
+        String query = "SELECT * FROM " + TABLE_NAME5;
+        //SQLite db instance - so we are able to use our db//
+        SQLiteDatabase dba = this.getReadableDatabase();
+        //wanting everything returned from table//
+        //cursor holds all of the database rows//
+        //The purpose of a cursor is to point to a single row of the result fetched by the query//
+        //We load the row pointed by the cursor object//
+        Cursor cursor = dba.rawQuery(query, null);
+        //rawQuery() directly accepts an SQL select statement as input//
+        //The method returns 'Cursor' object which points to one row of the query result//
+
+        //cursor holds all of the databse rows//
+        totalItems = cursor.getCount();
+
+        cursor.close();
+
+        return totalItems;
+    }
+
     //select* from sleep_tracker where baby_name = " x baby_name "
 
     Cursor getSleepTrackerData(){
@@ -229,6 +262,73 @@ public class SQLdb extends SQLiteOpenHelper {
             c = db.rawQuery(query, null);
         }
         return c;
+    }
+
+    int totalCalories(){
+        int cals = 0;
+
+        SQLiteDatabase dba = this.getReadableDatabase();
+
+        //getting sum of calories column//
+        String query = "SELECT SUM( " + COLUMN_CAL + " ) " +
+                "FROM " + TABLE_NAME5;
+
+        Cursor cursor = dba.rawQuery(query, null);
+
+        //if there is something there in the cursor then we are going to get the id at index 0//
+
+        if (cursor.moveToFirst()) {
+            cals = cursor.getInt(0);
+        }
+
+        //close rows and db//
+        cursor.close();
+        dba.close();
+
+        return cals;
+
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<FoodClass> getFoods(){
+
+        //clear our array we created before we add anything so nothing from previous query//
+        foodList.clear();
+
+        //reading from database//
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //create new string array of everything want to get from the db//
+        Cursor cursor = db.query(TABLE_NAME5,
+                new String[]{FOOD_ROW_ID, COLUMN_FOOD, COLUMN_CAL,
+                        COLUMN_DATE}, null, null, null, null, COLUMN_DATE + " DESC ");
+
+        //loop through cursor, now it has all items from db//
+        //Cursor is an object that can iterate on the result rows of your query - cursor can move to each row//
+        //move to first moves cursor to the first result//
+        if (cursor.moveToFirst()) {
+            do {
+
+                //create instance of our food item//
+                FoodClass food = new FoodClass();
+                food.setFoodName(cursor.getString(cursor.getColumnIndex(COLUMN_FOOD)));
+                food.setCalories(cursor.getInt(cursor.getColumnIndex(COLUMN_CAL)));
+                food.setFoodId(cursor.getInt(cursor.getColumnIndex(FOOD_ROW_ID)));
+
+                DateFormat dateFormat = DateFormat.getDateInstance();
+                @SuppressLint("Range") String date = dateFormat.format(new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_DATE))).getTime());
+
+                food.setRecordDate(date);
+
+                foodList.add(food);
+
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return foodList;
     }
 
 
@@ -269,6 +369,16 @@ public class SQLdb extends SQLiteOpenHelper {
             Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void deleteFoodRow(int id) {
+
+        SQLiteDatabase dba = this.getWritableDatabase();
+        dba.delete(TABLE_NAME5, FOOD_ROW_ID + " = ?",
+                //convert id int into string - as putting into string array//
+                new String[]{String.valueOf(id)});
+
+        dba.close();
     }
 
     void deleteAllNames(){

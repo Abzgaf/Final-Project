@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FoodDesc">
+
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true"
+        android:background="#F3CBBF"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/detsFoodName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:textSize="24sp" />
+
+
+        <TextView
+            android:id="@+id/detsCaloriesValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"
+            android:layout_toLeftOf="@+id/detsCaloriesTitle"
+            android:textColor="#87314e"
+            android:textSize="22sp"
+            android:textStyle="" />
+
+        <TextView
+            android:id="@+id/detsCaloriesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@+id/detsCaloriesValue"
+            android:text="Cals"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/detsDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"
+            android:text="Consumed on.."
+            android:textSize="14sp"
+            android:textStyle="italic" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
