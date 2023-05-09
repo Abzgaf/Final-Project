@@ -28,9 +28,10 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         username_input = findViewById(R.id.username_input);
         pass_input = findViewById(R.id.pass_input);
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+
 
 
 
