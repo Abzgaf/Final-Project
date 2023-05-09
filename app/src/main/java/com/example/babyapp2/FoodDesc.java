@@ -42,7 +42,7 @@ public class FoodDesc extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar//
-        getMenuInflater().inflate(R.menu.food_menu_delete, menu);
+        getMenuInflater().inflate(R.menu.m, menu);
         return true;
     }
 
@@ -52,7 +52,7 @@ public class FoodDesc extends AppCompatActivity {
         int id = item.getItemId();
 
         //refers to deleteItem from menu//
-        if (id == R.id.deleteItem) {
+        if (id == R.id.delete_all) {
 
             AlertDialog.Builder alert = new AlertDialog.Builder(FoodDesc.this);
             alert.setTitle("Delete?");
