@@ -32,7 +32,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
     Animation animation;
 
 
-    public static String x_babyName;
+    public static String x_child_id;
 
     MyAdapter(Activity activity, Context context,ArrayList id,ArrayList baby_name, ArrayList baby_age, ArrayList baby_gender){
         this.activity = activity;
@@ -73,8 +73,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
         holder.mainProfileListLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                x_babyName = String.valueOf(baby_name.get(position));
-                Toast.makeText(v.getContext(), x_babyName, Toast.LENGTH_SHORT).show();
+                x_child_id = String.valueOf(id.get(position));
+                Toast.makeText(v.getContext(), x_child_id, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, Dashboard.class);
                 intent.putExtra("id", String.valueOf(id.get(position)));
                 intent.putExtra("name", String.valueOf(baby_name.get(position)));

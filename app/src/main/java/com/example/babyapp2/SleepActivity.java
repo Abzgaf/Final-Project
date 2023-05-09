@@ -1,5 +1,5 @@
 package com.example.babyapp2;
-import static com.example.babyapp2.MyAdapter.x_babyName;
+import static com.example.babyapp2.MyAdapter.x_child_id;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -102,7 +102,7 @@ public class SleepActivity extends AppCompatActivity {
                 SQLdb db = new SQLdb(SleepActivity.this);
                 try {
                     db.addSleepTrackerData(sdf2.parse(time1.getText().toString().trim()),
-                            sdf2.parse(time2.getText().toString().trim()), x_babyName);
+                            sdf2.parse(time2.getText().toString().trim()), x_child_id);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

@@ -1,6 +1,6 @@
 package com.example.babyapp2;
 
-import static com.example.babyapp2.MainActivity.x;
+import static com.example.babyapp2.MyAdapter.x_child_id;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,7 +22,6 @@ import android.widget.Toast;
 public class DiaperAddActivity extends AppCompatActivity {
     RadioGroup radioGroupDiaperType;
     RadioButton rb_cloth, rb_disposable;
-    EditText editTextComments;
     CheckBox checkBoxPoop;
     CheckBox checkBoxBath;
     String diaperType = "unknown";
@@ -51,9 +50,9 @@ public class DiaperAddActivity extends AppCompatActivity {
             public void onClick(View v){
                 SQLdb db = new SQLdb(DiaperAddActivity.this);
                     if(rb_cloth.isChecked()){
-                        db.addDiaperTrackerData(rb_cloth.getText().toString(),Boolean.getBoolean(String.valueOf(checkBoxPoop)), Boolean.getBoolean(String.valueOf(checkBoxBath)),x);;
+                        db.addDiaperTrackerData(rb_cloth.getText().toString(),Boolean.getBoolean(String.valueOf(checkBoxPoop)), Boolean.getBoolean(String.valueOf(checkBoxBath)),x_child_id);;
                     }else{
-                        db.addDiaperTrackerData(rb_disposable.getText().toString(),Boolean.getBoolean(String.valueOf(checkBoxPoop)), Boolean.getBoolean(String.valueOf(checkBoxBath)),x);;
+                        db.addDiaperTrackerData(rb_disposable.getText().toString(),Boolean.getBoolean(String.valueOf(checkBoxPoop)), Boolean.getBoolean(String.valueOf(checkBoxBath)),x_child_id);;
                     }
                 Intent intent = new Intent(DiaperAddActivity.this, Dashboard.class);
                 startActivity(intent);

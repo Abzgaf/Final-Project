@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_homepage"
-        android:title="homepage"
-        android:textColor="#9DC8C8"/>
-    <item android:id="@+id/action_addFood"
-        android:title="addFood"/>
-    <item android:id="@+id/action_diary"
-        android:title="diary"/>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_addFood"
+        android:icon="@drawable/ic_add"
+        android:title="addFood"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_diary"
+        android:icon="@drawable/ic_baseline_view_list_24"
+        android:title="diary"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/homeBtn"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home"
+        app:showAsAction="always" />
 
 </menu>

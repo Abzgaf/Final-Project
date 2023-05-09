@@ -88,7 +88,8 @@
         </activity>
         <activity
             android:name=".FoodActivity"
-            android:exported="false" >
+            android:exported="false"
+            android:label="Food Tracker">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -96,6 +97,7 @@
         <activity
             android:name=".FoodAdd"
             android:exported="false"
+            android:label="Add a food/beverage"
             android:parentActivityName=".FoodActivity">
             <meta-data
                 android:name="android.app.lib_name"

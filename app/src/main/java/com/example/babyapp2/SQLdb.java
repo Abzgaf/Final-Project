@@ -1,4 +1,5 @@
 package com.example.babyapp2;
+import static com.example.babyapp2.MyAdapter.x_child_id;
 import static com.example.babyapp2.MainActivity.x;
 
 import android.annotation.SuppressLint;
@@ -54,6 +55,8 @@ public class SQLdb extends SQLiteOpenHelper {
     public static final String COLUMN_CAL = "calories";
     public static final String COLUMN_DATE = "recorddate";
     public static final String FOOD_ROW_ID = "food_row_id";
+    public static final String CHILD_REF_ID = "x_child_id";
+
 
 
 
@@ -98,7 +101,7 @@ public class SQLdb extends SQLiteOpenHelper {
                         COLUMN_MATERIAL + " TEXT, " +
                         COLUMN_POOP + " BOOLEAN, " +
                         COLUMN_BATH + " BOOLEAN, " +
-                        COLUMN_PARENT_NAME + " TEXT);";
+                        CHILD_REF_ID + " INTEGER);";
         db.execSQL(query4);
 
         String query5 =
@@ -107,7 +110,7 @@ public class SQLdb extends SQLiteOpenHelper {
                         COLUMN_FOOD + " TEXT, " +
                         COLUMN_CAL + " INT, " +
                         COLUMN_DATE + " LONG, " +
-                        COLUMN_PARENT_NAME + " TEXT);";
+                        CHILD_REF_ID + " INTEGER);";
         db.execSQL(query5);
 
 
@@ -168,14 +171,14 @@ public class SQLdb extends SQLiteOpenHelper {
         }
     }
 
-    void addDiaperTrackerData(String material, boolean poop, boolean bath, String x_babyname) {
+    void addDiaperTrackerData(String material, boolean poop, boolean bath, String x_child_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(COLUMN_MATERIAL, material);
         values.put(COLUMN_POOP, poop);
         values.put(COLUMN_BATH, bath);
-        values.put(COLUMN_PARENT_NAME, x_babyname);
+        values.put(CHILD_REF_ID, x_child_id);
         long result = db.insert(TABLE_NAME4, null, values);
         if (result == -1) {
             Toast.makeText(context, "Failed to add diaper description", Toast.LENGTH_SHORT).show();
@@ -184,7 +187,7 @@ public class SQLdb extends SQLiteOpenHelper {
         }
     }
 
-    void addFoodTrackerData(FoodClass food, String x_babyname){
+    void addFoodTrackerData(FoodClass food, String x_child_id){
         SQLiteDatabase dba = this.getWritableDatabase();
 
         //key value pair object//
@@ -193,7 +196,7 @@ public class SQLdb extends SQLiteOpenHelper {
         values.put(COLUMN_CAL, food.getCalories());
         //ask Android OS to give date//
         values.put(COLUMN_DATE, System.currentTimeMillis());
-        values.put(COLUMN_PARENT_NAME, x_babyname);
+        values.put(CHILD_REF_ID, x_child_id);
 
         //inserting food into our table//
         dba.insert(TABLE_NAME5, null, values);
@@ -228,12 +231,13 @@ public class SQLdb extends SQLiteOpenHelper {
         return c;
     }
 
+
     public int getTotalFoodItems() {
 
         int totalItems = 0;
 
         //selecting all from our table//
-        String query = "SELECT * FROM " + TABLE_NAME5;
+        String query = "SELECT * FROM food_tracker WHERE x_child_id = 2";
         //SQLite db instance - so we are able to use our db//
         SQLiteDatabase dba = this.getReadableDatabase();
         //wanting everything returned from table//
@@ -329,6 +333,7 @@ public class SQLdb extends SQLiteOpenHelper {
         db.close();
 
         return foodList;
+
     }
 
 
