@@ -1,5 +1,35 @@
 package com.example.babyapp2;
 
+// GPSTracker class that tracks the user's GPS location and allows them to save waypoints.
+
+// WayPoint_btn.setOnClickListener: This sets a click listener for the "WayPoint" button.
+// When the button is clicked, the current location is added to the saved locations list.
+
+// ListOfWP_btn.setOnClickListener: This sets a click listener for the "ListOfWP" button.
+// When the button is clicked, the SavedWayPointsActivity is started, which displays the list of saved waypoints.
+
+// Map_btn.setOnClickListener: This sets a click listener for the "Map" button.
+// When the button is clicked, the MapsActivity is started, which displays the map with the user's current location and saved waypoints.
+
+// gps_switch.setOnClickListener: This sets a click listener for the GPS switch.
+// When the switch is toggled, it changes the location request priority between using GPS sensors (high accuracy) , using towers
+// and Wi-Fi sensors (balanced power accuracy).
+
+// updateLoc_switch.setOnClickListener: This sets a click listener for the update location switch.
+// When the switch is toggled, it either starts or stops location updates.
+
+// onRequestPermissionsResult: This method is called when permissions are requested, and handles the response.
+// If the user grants the location permission, it updates the GPS, otherwise, it shows a toast message and finishes the activity.
+
+// updateGPS: This method updates the location and starts the GPS tracking.
+// It checks if the user has granted location permission and then requests the user's last known location and calls updateUIValues with the retrieved location.
+
+// updateUIValues: This method takes a Location object as input and updates the UI with the location's address.
+// It also updates the waypoint count displayed in the UI with the number of saved locations.
+
+// The purpose of this Android app is to track the user's location using GPS, save waypoints, and display the saved waypoints in a list and on a map.
+// The user can also choose between using GPS sensors or towers and Wi-Fi sensors for location tracking.
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -31,8 +61,8 @@ public class GPSTracker extends AppCompatActivity {
 
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int FAST_UPDATE_INTERVAL = 5;
-    TextView tv_lat, tv_lon, tv_sensor, tv_updates, tv_address, tv_WPCount;
-    Switch sw_gps, sw_locationsupdates;
+    TextView sensor_type_txt, update_type_txt, shownLoc_txt, wayPointCount_txt;
+    Switch gps_switch, updateLoc_switch;
     Button WayPoint_btn, ListOfWP_btn, Map_btn;
 
     LocationRequest locationRequest;
@@ -48,19 +78,15 @@ public class GPSTracker extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gpstracker);
 
-        tv_lat = findViewById(R.id.tv_lat);
-        tv_lon = findViewById(R.id.tv_lon);
-        tv_sensor = findViewById(R.id.tv_sensor);
-        tv_updates = findViewById(R.id.tv_updates);
-        tv_address = findViewById(R.id.tv_address);
-        tv_WPCount = findViewById(R.id.tv_WPCount);
-        sw_gps = findViewById(R.id.sw_gps);
-        sw_locationsupdates = findViewById(R.id.sw_locationsupdates);
+        sensor_type_txt = findViewById(R.id.sensor_type_txt);
+        update_type_txt = findViewById(R.id.update_type_txt);
+        shownLoc_txt = findViewById(R.id.shownLoc_txt);
+        wayPointCount_txt = findViewById(R.id.wayPointCount_txt);
+        gps_switch = findViewById(R.id.gps_switch);
+        updateLoc_switch = findViewById(R.id.updateLoc_switch);
         WayPoint_btn = findViewById(R.id.WayPoint_btn);
         ListOfWP_btn = findViewById(R.id.ListOfWP_btn);
         Map_btn = findViewById(R.id.Map_btn);
-
-
 
         locationRequest = new LocationRequest();
 
@@ -103,23 +129,23 @@ public class GPSTracker extends AppCompatActivity {
         });
 
 
-        sw_gps.setOnClickListener(new View.OnClickListener() {
+        gps_switch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              if (sw_gps.isChecked()) {
+              if (gps_switch.isChecked()) {
                   locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                  tv_sensor.setText("Using GPS sensors");
+                  sensor_type_txt.setText("Using GPS sensors");
               }else{
                   locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-                  tv_sensor.setText("Using Towers + WIFI sensors");
+                  sensor_type_txt.setText("Using Towers + WIFI sensors");
               }
 
             }
         });
-        sw_locationsupdates.setOnClickListener(new View.OnClickListener() {
+        updateLoc_switch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sw_locationsupdates.isChecked()){
+                if(updateLoc_switch.isChecked()){
                     startLocationUpdates();
                 }else{
                     stopLocationUpdates();
@@ -132,18 +158,16 @@ public class GPSTracker extends AppCompatActivity {
 
     private void stopLocationUpdates() {
 
-        tv_updates.setText("Location is NOT being tracked");
-        tv_lat.setText("Not tracking location");
-        tv_lon.setText("Not tracking location");
-        tv_sensor.setText("Not available");
-        tv_address.setText("Not available");
+        update_type_txt.setText("Location is NOT being tracked");
+        sensor_type_txt.setText("Not available");
+        shownLoc_txt.setText("Not available");
         fusedLocationProviderClient.removeLocationUpdates(locationCallback);
     }
 
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
 
-        tv_updates.setText("Location is being tracked");
+        update_type_txt.setText("Location is being tracked");
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
         updateGPS();
 
@@ -188,20 +212,18 @@ public class GPSTracker extends AppCompatActivity {
     }
 
     private void updateUIValues(Location location){
-        tv_lat.setText(String.valueOf(location.getLatitude()));
-        tv_lon.setText(String.valueOf(location.getLongitude()));
 
         Geocoder geocoder = new Geocoder(GPSTracker.this);
         try {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            tv_address.setText(addresses.get(0).getAddressLine(0));
+            shownLoc_txt.setText(addresses.get(0).getAddressLine(0));
         } catch (Exception e) {
-            tv_address.setText("Not Working");
+            shownLoc_txt.setText("Not Working");
         }
 
         GPS2 gps = (GPS2)getApplicationContext();
         savedLocations = gps.getLocations();
-        tv_WPCount.setText(String.valueOf(savedLocations.size()));
+        wayPointCount_txt.setText(String.valueOf(savedLocations.size()));
 
 
     }

@@ -1,5 +1,14 @@
 package com.example.babyapp2;
 
+// MapsActivity used in GPSTracker.
+// It initializes a GoogleMap object and sets up a SupportMapFragment to display the map.
+// It also retrieves a List of Location objects from the app's GPS data.
+
+// When the map is ready, the code adds markers to the map at the locations stored in the List of Location objects.
+// It also sets the camera position to center on the last location clicked.
+
+//The code sets up a listener for when a marker is clicked, which displays a message indicating how many times that particular marker has been clicked.
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 

@@ -1,5 +1,20 @@
 package com.example.babyapp2;
 
+// Android code for dashboard activity
+// The dashboard consists of multiple cards for different functionalities like
+// Sleep tracking, Diaper Tracking, Food Tracking, GPS Tracking, Growth Tracking, and an AR feature.
+//
+
+// The toolbar is initialized and onClickListener is set. When the toolbar button is clicked, it checks whether the table in the database is empty or not.
+// If it's empty, it navigates to the `AddingActivity`, otherwise it navigates to the `BabyList` activity.
+
+// OnClickListener is set for each CardView (c1 to c6).
+// When a card is clicked, it navigates to the respective activity (SleepActivity, DiaperAddActivity, FoodActivity, GPSTracker, ARfeature).
+// The ActionBar is hidden using `actionBar.hide();`
+//
+// When this activity is launched, the user will see a dashboard with cards for different functionalities.
+// Clicking on a card will navigate to the associated activity for that feature.
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -117,13 +132,23 @@ public class Dashboard extends AppCompatActivity {
         });
         growth_pic = findViewById(R.id.growth_pic);
         growth_text = findViewById(R.id.growth_text);
+        //c5
+
 
         ar_pic = findViewById(R.id.ar_pic);
         ar_text = findViewById(R.id.ar_text);
+        c6 = findViewById(R.id.c6);
+
+        c6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, ARfeature.class);
+                startActivity(intent);
+            }
+        });
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
 
     }
 }

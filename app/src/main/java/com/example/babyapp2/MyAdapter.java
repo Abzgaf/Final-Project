@@ -1,5 +1,16 @@
 package com.example.babyapp2;
 
+// MyAdapter RecyclerView class to connect baby information.
+
+// The adapter takes in four arrays as parameters (id, baby_name, baby_age, and baby_gender) and uses them to populate a RecyclerView with information about babies.
+// The adapter inflates a layout called profile_display for each item in the RecyclerView and assigns values from the arrays to TextViews and an ImageView in the layout.
+
+// The adapter also sets up click listeners for the items in the RecyclerView.
+// When the user clicks on the menu_dropdown ImageView, the adapter launches an UpdateActivity with information about the selected baby.
+
+// When the user clicks on the mainProfileListLayout, the adapter launches a Dashboard activity with information about the selected baby.
+// The adapter includes an inner class called MyViewHolder, which defines views for each item in the RecyclerView and sets up animations for them.
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -74,7 +85,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
             @Override
             public void onClick(View v) {
                 x_child_id = String.valueOf(id.get(position));
-                Toast.makeText(v.getContext(), x_child_id, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, Dashboard.class);
                 intent.putExtra("id", String.valueOf(id.get(position)));
                 intent.putExtra("name", String.valueOf(baby_name.get(position)));

@@ -1,26 +1,32 @@
 package com.example.babyapp2;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+// Code for a basic login system, involving input validation and database interactions.
+// It defines a main activity that has two text input fields for the username and password, and two buttons - one for signing up and one for logging in.
 
+// When the user clicks on the sign-up button, the input values are first validated to check if they meet certain criteria like length and whitespace restrictions.
+// If the input is valid, it is added to an SQLite database using the SQLdb class.
+
+// When the user clicks on the login button, the input values are again validated, and if they are valid,
+// the SQLdb class is used to check if the username exists in the database.
+// If it does, the user is redirected to a new activity called "BabyList".
+
+
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText username_input;
     EditText pass_input;
-    Button login_btn;
+    Button signIn_btn;
     Button login;
 
     public static String x;
@@ -35,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         username_input = findViewById(R.id.username_input);
         pass_input = findViewById(R.id.pass_input);
-        login_btn = findViewById(R.id.login_btn);
+        signIn_btn = findViewById(R.id.signIn_btn);
         login = findViewById(R.id.login);
 
 
-        login_btn.setOnClickListener(new View.OnClickListener() {
+        signIn_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!validateUsername() | !validatePassword()) {
@@ -55,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 x = username_input.getText().toString().trim();
-                Toast.makeText(MainActivity.this, x, Toast.LENGTH_SHORT).show();
                 if (!validateUsername() | !validatePassword()) {
                     return;
                 }
@@ -92,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean validatePassword(){
         String val = pass_input.getText().toString().trim();
-        //dfsfdfint a = Integer.parseInt(val);
         String checkPassword =
                 "(.*[0-9])";         //at least 1 digit
 

@@ -1,5 +1,18 @@
 package com.example.babyapp2;
 
+// Android activity that allows the user to add a baby profile to a database.
+
+// The activity contains several UI elements such as EditTexts for the baby's name and age,
+// a TextView for selecting the baby's gender, and a Button for adding the baby to the database.
+
+// The code initializes an AlertDialog when the user clicks on the gender TextView,
+// which allows the user to select the baby's gender from a list of options (in this case, "Boy" and "Girl").
+// The AlertDialog uses a boolean array to keep track of which options are selected, and an ArrayList to store the selected options.
+// When the user clicks the "OK" button in the dialog, the selected gender options are concatenated into a string and displayed in the gender TextView.
+
+// When the user clicks the "Add" button, the code reads the values from the EditTexts and TextView, and adds them to the database using an SQLdb object.
+// It then starts a new activity that displays a list of all the babies in the database.
+
 import static com.example.babyapp2.MainActivity.x;
 
 import androidx.appcompat.app.AlertDialog;

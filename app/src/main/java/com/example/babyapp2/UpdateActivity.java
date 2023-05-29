@@ -1,5 +1,23 @@
 package com.example.babyapp2;
 
+// UpdateActivity class that is used on the MainActivity.
+// It provides functionalities to update or delete the baby's details, such as the baby's name, age, and gender.
+
+//1. The activity layout includes EditTexts for baby's name and age, a TextView for baby's gender, and buttons for updating and deleting the baby's details.
+
+//2. `getSetData()` function retrieves the baby's details from the intent and sets them as the initial values in the EditTexts and TextView.
+
+//3. When the `update_button` is clicked, the `onClick()` function updates the baby's details in the SQL database
+//   using the `SQLdb` class and navigates back to the `BabyList` activity.
+
+//4. When the `delete_button` is clicked, a confirmation dialog is shown using the `deleteConfirmation()` function.
+//   If the user confirms to delete the details, the baby's data will be deleted from the SQL database using the `SQLdb` class, and the activity will be finished.
+
+//5. When the `baby_gender_upd` TextView is clicked, an AlertDialog with multiple choices (Boy and Girl) is displayed.
+//   The user can select one, and the selected gender will be set as the text in the TextView.
+//   The DialogInterface buttons include "OK" to confirm the selection, "Cancel" to dismiss the dialog, and "Clear All" to clear the selected gender.
+
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

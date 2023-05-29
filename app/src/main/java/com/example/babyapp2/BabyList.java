@@ -1,5 +1,20 @@
 package com.example.babyapp2;
 
+// Android class that displays a list of babies.
+// It uses a RecyclerView to display the list and allows the user to add new babies or delete all existing ones.
+
+// The screen also uses a FloatingActionButton to allow the user to add a new baby,
+// an ImageView and TextView to display a message if there are no babies in the list.
+
+// The SQLdb class is used to manage the database that stores the baby information,
+// and the showData() method retrieves the information from the database and adds it to the appropriate ArrayLists.
+
+// The MyAdapter class is used to manage the display of the baby information in the RecyclerView.
+
+// The onCreateOptionsMenu() method creates a menu for deleting all babies, and the onOptionsItemSelected() method confirms the user's decision to delete all records.
+
+// Lastly, the deleteAllConfirmation() method shows a confirmation dialog box when the user chooses to delete all babies.
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

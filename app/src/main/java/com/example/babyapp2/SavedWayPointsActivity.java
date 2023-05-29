@@ -1,5 +1,10 @@
 package com.example.babyapp2;
 
+// code which displays a list of saved locations (waypoints).
+
+// The code then gets a reference to the application context and retrieves a list of saved locations using GPS2 class.
+// Finally, it sets an adapter for the ListView that displays the saved locations using a simple one-line layout provided by the Android framework.
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.location.Location;

@@ -1,4 +1,29 @@
 package com.example.babyapp2;
+
+// Java class named `SQLdb` that extends the `SQLiteOpenHelper` class.
+// It is responsible for managing the SQL database for Junyers.
+// The code is written in Java and is designed to manage an SQLite database
+
+// The app collects data on baby profiles, sleep & diaper trackers, and a food tracker.
+// The class defines several tables to store this data and several functions to interact with these tables.
+
+// Here's a summary of what the class does:
+
+//1. It defines constants for the database name and version, and various table names and column names.
+//2. It declares an ArrayList named `foodList` to store a list of `FoodClass` objects.
+//3. In the constructor, it initializes the `context`.
+//4. In the `onCreate` method, it creates tables in the database based on the table definitions.
+//5. In the `onUpgrade` method, it drops all the tables and recreates them if the database version is updated.
+//6. It defines several methods to add data to the tables, including `addData`, `addBabyProfile`, `addSleepTrackerData`, `addDiaperTrackerData`, and `addFoodTrackerData`.
+//7. It defines a method `checkusername` to check if a username exists in the database.
+//8. It defines methods `getProfileData`, `getSleepTrackerData`, `totalCalories`, and `getFoods` to retrieve data from the database.
+//9. It defines a method `checkTableEmpty` to check if the baby details table is empty.
+//10. It defines a method `updateTable` to update a baby profile in the database.
+//11. It defines a method `deleteRow` to delete a baby profile from the database.
+//12. It defines a method `deleteFoodRow` to delete a food entry from the database.
+//13. It defines a method `deleteAllNames` to delete all baby profiles from the database.
+
+
 import static com.example.babyapp2.MyAdapter.x_child_id;
 import static com.example.babyapp2.MainActivity.x;
 
@@ -213,7 +238,7 @@ public class SQLdb extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from login_dets where username = ?", new String[]{username});
         if (cursor.getCount() > 0) {
-            Toast.makeText(context, "Logged in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Welcome " + username, Toast.LENGTH_SHORT).show();
             return true;
         }else{
             Toast.makeText(context, "Failed to Log in ", Toast.LENGTH_SHORT).show();

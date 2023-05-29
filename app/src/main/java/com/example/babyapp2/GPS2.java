@@ -1,5 +1,11 @@
 package com.example.babyapp2;
 
+// GPS2 which extends the Application class.
+
+// The getLocations() method returns the value of the locations variable. The setLocations() method sets the value of the locations variable.
+// The getInstance() method returns the singleton instance of GPS2.
+// The onCreate() method initializes the singleton instance and creates an empty ArrayList to store the locations.
+
 import android.app.Application;
 import android.location.Location;
 

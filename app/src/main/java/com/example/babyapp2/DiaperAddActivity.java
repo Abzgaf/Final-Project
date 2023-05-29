@@ -1,23 +1,29 @@
 package com.example.babyapp2;
 
+// Functionality class of the Diaper Add activity
+// It includes various UI components such as radio buttons for selecting the type of diaper,
+// checkboxes for indicating whether poop is present and whether a bath was taken, and two buttons for saving or canceling the diaper entry.
+//
+// The code sets up listeners for the radio buttons and checkboxes to capture the user's selections.
+// If the user selects the cloth diaper radio button, the diaper type is set to "cloth", otherwise it is set to "disposable".
+// Similarly, if the user checks the poop present checkbox, a flag is set to indicate that poop is present, and if the bath taken checkbox is checked,
+// a flag is set to indicate that a bath was taken.
+//
+// When the user clicks the save button, the code adds the diaper entry to a SQLite database using the values selected by the user.
+// It then launches the Dashboard activity. If the user clicks the cancel button, the code simply returns to the Dashboard activity without saving any data.
+
 import static com.example.babyapp2.MyAdapter.x_child_id;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class DiaperAddActivity extends AppCompatActivity {
     RadioGroup radioGroupDiaperType;
@@ -31,15 +37,16 @@ public class DiaperAddActivity extends AppCompatActivity {
     SQLdb db;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diaper_add);
 
 
-        radioGroupDiaperType = findViewById(R.id.rg_diaper_type);
-        checkBoxPoop = findViewById(R.id.cb_poop_present);
-        checkBoxBath = findViewById(R.id.cb_bath);
+        radioGroupDiaperType = findViewById(R.id.DiaperGroup);
+        checkBoxPoop = findViewById(R.id.poopNappieBox);
+        checkBoxBath = findViewById(R.id.bathTakenBox);
         findId();
         db = new SQLdb(DiaperAddActivity.this);
 
@@ -59,16 +66,24 @@ public class DiaperAddActivity extends AppCompatActivity {
                 }
         });
 
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DiaperAddActivity.this,  Dashboard.class);
+                startActivity(i);
+            }
+        });
+
     }
 
     public void onRadioButtonClicked(View view){
         boolean checked = ((RadioButton) view).isChecked();
-        if (view.getId() == R.id.rb_cloth){
+        if (view.getId() == R.id.cloth){
             if (checked) {
                 diaperType = getResources().getString(R.string.clothType);
             }
         }
-        else if (view.getId() == R.id.rb_disposable){
+        else if (view.getId() == R.id.disposable){
             if (checked){
                 diaperType = getResources().getString(R.string.disposableType);
             }
@@ -77,11 +92,11 @@ public class DiaperAddActivity extends AppCompatActivity {
 
     public void onCheckBoxClicked(View view){
         boolean checked = ((CheckBox) view).isChecked();
-        if (view.getId() == R.id.cb_poop_present){
+        if (view.getId() == R.id.poopNappieBox){
             if (checked){
                 poopPresent = true;
             }
-        } else if (view.getId() == R.id.cb_bath){
+        } else if (view.getId() == R.id.bathTakenBox){
             if (checked){
                 bath = true;
             }
@@ -89,8 +104,8 @@ public class DiaperAddActivity extends AppCompatActivity {
     }
 
     void findId() {
-        rb_cloth=(RadioButton) findViewById(R.id.rb_cloth);
-        rb_disposable=(RadioButton) findViewById(R.id.rb_disposable);
+        rb_cloth=(RadioButton) findViewById(R.id.cloth);
+        rb_disposable=(RadioButton) findViewById(R.id.disposable);
         btn_save = findViewById(R.id.btn_save);
         btn_cancel = findViewById(R.id.btn_cancel);
     }
