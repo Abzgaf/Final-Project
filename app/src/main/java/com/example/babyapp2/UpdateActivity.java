@@ -15,7 +15,7 @@ package com.example.babyapp2;
 
 //5. When the `baby_gender_upd` TextView is clicked, an AlertDialog with multiple choices (Boy and Girl) is displayed.
 //   The user can select one, and the selected gender will be set as the text in the TextView.
-//   The DialogInterface buttons include "OK" to confirm the selection, "Cancel" to dismiss the dialog, and "Clear All" to clear the selected gender.
+///   The DialogInterface buttons include "OK" to confirm the selection, "Cancel" to dismiss the dialog, and "Clear All" to clear the selected gender.
 
 
 import androidx.appcompat.app.ActionBar;
