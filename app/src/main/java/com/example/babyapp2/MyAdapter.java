@@ -65,7 +65,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
 
     @Override
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.id.setText(String.valueOf(id.get(position)));
         holder.baby_name_input.setText(String.valueOf(baby_name.get(position)));
         holder.baby_age_input.setText(String.valueOf(baby_age.get(position)));
         holder.baby_gender_input.setText(String.valueOf(baby_gender.get(position)));
@@ -116,13 +115,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView id, baby_name_input, baby_age_input, baby_gender_input;
+        TextView baby_name_input, baby_age_input, baby_gender_input;
         ImageView menu_dropdown;
         ConstraintLayout mainProfileListLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            id = itemView.findViewById(R.id.id);
             baby_name_input = itemView.findViewById(R.id.baby_name_input);
             baby_age_input = itemView.findViewById(R.id.baby_age_input);
             baby_gender_input = itemView.findViewById(R.id.baby_gender_input);

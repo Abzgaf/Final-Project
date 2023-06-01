@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    tools:context=".AddingActivity">
+    tools:context=".AddingActivity"
+    android:background="#D3E3F8">
 
 
     <EditText
@@ -48,18 +49,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/baby_age_upd" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/update_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Update"
+        android:textColor="#51aef4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/baby_gender_upd" />
+        app:layout_constraintTop_toBottomOf="@+id/baby_gender_upd"
+        android:background="@drawable/custom_btn"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/delete_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,6 +71,7 @@
         android:textColor="#FF0000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/update_button" />
+        app:layout_constraintTop_toBottomOf="@+id/update_button"
+        android:background="@drawable/custom_btn"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,56 +2,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D3E3F8"
     tools:context=".FoodDesc">
 
 
     <LinearLayout
         android:id="@+id/layout"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_centerInParent="true"
-        android:background="#F3CBBF"
+        android:layout_width="370dp"
+        android:layout_height="303dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:background="@drawable/custom_btn"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/detsFoodName"
+            android:id="@+id/food_name_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="18dp"
+            android:textColor="#02579A"
             android:textSize="24sp" />
 
 
         <TextView
-            android:id="@+id/detsCaloriesValue"
+            android:id="@+id/food_cal_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="14dp"
-            android:layout_toLeftOf="@+id/detsCaloriesTitle"
-            android:textColor="#87314e"
+            android:layout_toLeftOf="@+id/food_cal_title_desc"
+            android:textColor="#3F51B5"
             android:textSize="22sp"
             android:textStyle="" />
 
         <TextView
-            android:id="@+id/detsCaloriesTitle"
+            android:id="@+id/food_cal_title_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="6dp"
-            android:layout_toRightOf="@+id/detsCaloriesValue"
+            android:layout_toRightOf="@+id/food_cal_desc"
             android:text="Cals"
-            android:textSize="18sp" />
+            android:textColor="#3F51B5"
+            android:textSize="25sp" />
 
 
         <TextView
-            android:id="@+id/detsDateText"
+            android:id="@+id/food_date_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="14dp"
-            android:text="Consumed on.."
+            android:text="Taken on:"
+            android:textColor="#3F51B5"
             android:textSize="14sp"
             android:textStyle="italic" />
 

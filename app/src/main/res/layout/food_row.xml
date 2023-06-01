@@ -3,19 +3,20 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="12dp"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#D3E3F8">
 
     <!--Food name-->
     <TextView
-        android:id="@+id/name"
-        android:text="Food Name"
-        android:layout_marginTop="4dp"
-        android:textSize="24sp"
-        android:textStyle=""
-        android:padding="2dp"
-        android:textColor="#87314e"
+        android:id="@+id/food_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:padding="2dp"
+        android:text="Food Name"
+        android:textColor="#02579A"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <!--Date-->
 
@@ -29,36 +30,38 @@
 
     <!--Number of calories-->
     <TextView
-        android:id="@+id/dateText"
+        android:id="@+id/food_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
+        android:layout_below="@+id/food_name"
         android:layout_marginTop="11dp"
         android:padding="2dp"
         android:text="Date text"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:textColor="#02579A"/>
 
     <TextView
-        android:id="@+id/calories"
+        android:id="@+id/food_cal"
         android:textStyle=""
-        android:layout_below="@+id/dateText"
+        android:layout_below="@+id/food_date"
         android:layout_marginTop="4dp"
         android:gravity="right"
         android:textAlignment="gravity"
         android:textSize="24sp"
-        android:textColor="#87314e"
+        android:textColor="#02579A"
         android:padding="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <!--calories text-->
     <TextView
-        android:id="@+id/calText"
+        android:id="@+id/f_cal_txt"
         android:text="cal_text"
+        android:textColor="#02579A"
         android:layout_marginTop="16dp"
         android:textSize="15dp"
-        android:layout_toRightOf="@+id/calories"
-        android:layout_below="@+id/dateText"
+        android:layout_toRightOf="@+id/food_cal"
+        android:layout_below="@+id/food_date"
         android:gravity="right"
         android:layout_marginLeft="2dp"
         android:textAlignment="gravity"

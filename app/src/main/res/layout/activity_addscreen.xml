@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#9CABFF"
     tools:context=".MainActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -45,13 +46,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:alpha="0.4"
         android:fontFamily="@font/annie_use_your_telescope"
         android:text="No kids unfortunatly?......"
         android:textSize="24sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cry_img"
-        android:alpha="0.4"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/cry_img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

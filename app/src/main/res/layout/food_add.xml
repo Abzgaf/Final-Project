@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#D3E3F8"
+    android:orientation="vertical">
 
     <EditText
-        android:id="@+id/foodEditText"
-        android:padding="14dp"
+        android:id="@+id/food_txt"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="108dp"
-        android:hint="hint_food"
-        android:layout_gravity="center"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"    />
+        android:hint="Enter Food/Beverage"
+        android:padding="14dp" />
 
     <EditText
-        android:id="@+id/caloriesEditText"
-        android:padding="14dp"
-        android:inputType="number"
-        android:hint="hint_calories"
-        android:layout_gravity="center"
+        android:id="@+id/cal_txt"
         android:layout_width="250dp"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_marginTop="24dp"
-        android:text="add_food_button"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="3dp"
+        android:hint="Enter Calories"
+        android:inputType="number"
+        android:padding="14dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
-        android:background="#87314e"
-        android:textColor="#FFFFF3"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_btn"
+        android:padding="3dp"
+        android:text="Add Item"
+        android:textColor="#51aef4"
+        />
 
 </LinearLayout>

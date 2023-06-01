@@ -1,4 +1,22 @@
 package com.example.babyapp2;
+
+//  ARfeature is a class that displays a 3D model in augmented reality (AR) using Google's ARCore and Sceneform library.
+
+// The activity sets up the AR fragment, dropdown menu (spinner), and slider (seekbar) for user interaction.
+// It  loads 3D models from resources and stores them in an array called "renderable_models".
+// There is only one model available(baby model) but more can be added in the future.
+
+// The code iterates through the "glb_source" array, which contains resource IDs of 3D models, and creates a ModelRenderable for each model.
+// The ModelRenderable objects are stored in the "renderable_models" array for later use.
+
+// The activity sets an setOnTapArPlaneListener for the AR fragment.
+// When the user taps on a detected plane, an Anchor and AnchorNode are created at the tapped location.
+// A TransformableNode is then created and attached to the AnchorNode, and the selected 3D model is set as the renderable for the TransformableNode.
+
+// The activity listens for changes in the slider (seekbar) and updates the size of the 3D model accordingly by setting the local scale of the AnchorNode.
+
+// The activity listens for changes in the dropdown menu (spinner) and updates the renderable of the TransformableNode to the selected 3D model.
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -30,8 +48,6 @@ import java.util.List;
 
 public class ARfeature extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private static final double MIN_OPENGL_VERSION = 3.0;
     private ArFragment arFragment;
     private AnchorNode myanchornode;
     TransformableNode mytranode = null;
@@ -56,21 +72,6 @@ public class ARfeature extends AppCompatActivity {
         model_dropdown = findViewById(R.id.model_dropdown);
         model_slider = findViewById(R.id.model_slider);
 
-        List<AnchorNode> anchorNodes = new ArrayList<>();
-        model_slider.setEnabled(false);
-
-        Field popup = null;
-        try {
-            popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-            ListPopupWindow popupWindow = (ListPopupWindow) popup.get(model_dropdown);
-            popupWindow.setModal(false);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
         model_slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -86,26 +87,9 @@ public class ARfeature extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+        model_slider.setEnabled(false);
 
-        for(int i = 0 ; i < glb_source.length ; i++) {
-            int finalI = i;
-            ModelRenderable.builder()
-                    .setSource(this, glb_source[i])
-                    .setIsFilamentGltf(true)
-                    .setAsyncLoadEnabled(true)
-                    .build()
-                    .thenAccept(renderable -> renderable_models[finalI] = renderable)
-                    .exceptionally(
-                            throwable -> {
-                                Toast toast =
-                                        Toast.makeText(this, "Unable to load any renderable", Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER, 0, 0);
-                                toast.show();
-                                return null;
-                            });
-        }
-
-
+        List<AnchorNode> anchorNodes = new ArrayList<>();
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
                     if (renderable_models[model_dropdown.getSelectedItemPosition()] == null) {
@@ -113,10 +97,7 @@ public class ARfeature extends AppCompatActivity {
                     }
                     // Create the Anchor.
                     Anchor anchor = hitResult.createAnchor();
-
                     AnchorNode anchorNode = new AnchorNode(anchor);
-
-
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
                     anchorNodes.add(anchorNode);
                     model_slider.setEnabled(true);
@@ -154,7 +135,35 @@ public class ARfeature extends AppCompatActivity {
             }
         });
 
+        for(int i = 0 ; i < glb_source.length ; i++) {
+            int finalI = i;
+            ModelRenderable.builder()
+                    .setSource(this, glb_source[i])
+                    .setIsFilamentGltf(true)
+                    .setAsyncLoadEnabled(true)
+                    .build()
+                    .thenAccept(renderable -> renderable_models[finalI] = renderable)
+                    .exceptionally(
+                            throwable -> {
+                                Toast toast =
+                                        Toast.makeText(this, "Unable to load any renderable", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.CENTER, 0, 0);
+                                toast.show();
+                                return null;
+                            });
+        }
 
+        Field popup = null;
+        try {
+            popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+            ListPopupWindow popupWindow = (ListPopupWindow) popup.get(model_dropdown);
+            popupWindow.setModal(false);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }
 

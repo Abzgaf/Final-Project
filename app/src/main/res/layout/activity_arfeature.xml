@@ -12,17 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <SeekBar
-        android:id="@+id/model_slider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:min="40"
-        android:max="100"
-        android:enabled="false"
-        android:progress="70"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,6 +25,19 @@
             android:id="@+id/model_dropdown"
             />
     </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/model_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:min="40"
+        android:max="100"
+        android:enabled="false"
+        android:progress="70"/>
+
+
 
 
 </RelativeLayout>
