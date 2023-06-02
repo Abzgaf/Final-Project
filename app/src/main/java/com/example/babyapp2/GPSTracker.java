@@ -31,6 +31,7 @@ package com.example.babyapp2;
 // The user can also choose between using GPS sensors or towers and Wi-Fi sensors for location tracking.
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -153,6 +154,8 @@ public class GPSTracker extends AppCompatActivity {
             }
         });
         updateGPS();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
     }
 

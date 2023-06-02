@@ -2,6 +2,7 @@ package com.example.babyapp2;
 import static com.example.babyapp2.MyAdapter.x_child_id;
 
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -30,6 +31,7 @@ import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -45,10 +47,9 @@ public class SleepActivity extends AppCompatActivity {
 
     public TextView time1;
     public TextView time2;
-    public TextView diff;
     public Button start;
     public Button stop;
-    public Button diffBtn;
+    private int day = 0;
 
     long startTime = 0;
     long stopTime = 0;
@@ -66,22 +67,23 @@ public class SleepActivity extends AppCompatActivity {
 
         time1 = findViewById(R.id.time1);
         time2 = findViewById(R.id.time2);
-        diff = findViewById(R.id.diff);
         start = findViewById(R.id.start);
         stop = findViewById(R.id.stop);
         chart1 = findViewById(R.id.chart1);
 
+        chart1.setTouchEnabled(true);
         chart1.setDragEnabled(true);
         chart1.setScaleEnabled(true);
-        chart1.getDescription().setEnabled(false);
+        chart1.setPinchZoom(true);
         entries = new ArrayList<>();
-        diffBtn = findViewById(R.id.diffBtn);
-
-
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                entries.add(new Entry(day, System.currentTimeMillis()));
+                stop.setEnabled(true);
+                start.setEnabled(false);
 
                 final Date d = new Date();
                 SimpleDateFormat sdf1=new SimpleDateFormat("HH:mm:ss");
@@ -94,6 +96,13 @@ public class SleepActivity extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                entries.add(new Entry(day, System.currentTimeMillis()));
+                stop.setEnabled(false);
+                start.setEnabled(true);
+                day++;
+                updateChart();
+
                 final Date d1= new Date();
                 SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
                 final String currentDateTimeString1 = sdf2.format(d1);
@@ -107,91 +116,43 @@ public class SleepActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-
-
                 long difference = (stopTime - startTime)/1000;
                 entries.add(new Entry(entries.size(), difference));
                 stopTime = System.currentTimeMillis();
                 //populateChart();
-                setupChart();
                 updateChart();
 
 
             }
         });
-        diffBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-                Date date1 = null;
-                try {
-                    date1 = simpleDateFormat.parse(time1.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Date date2 = null;
-                try {
-                    date2 = simpleDateFormat.parse(time2.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                String diffResult= DateUtils.getRelativeTimeSpanString(date1.getTime(), date2.getTime(), DateUtils.FORMAT_SHOW_TIME).toString();
-                diff.setText(diffResult);
-            }
-        });
+        XAxis xAxis = chart1.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(getAreaCount()));
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 
-    private void setupChart() {
-        chart1.setDrawGridBackground(false);
-        chart1.getDescription().setEnabled(false);
 
-        dataSet = new LineDataSet(entries, "Time Results");
-        dataSet.setColor(Color.BLUE);
-        dataSet.setLineWidth(2f);
-        dataSet.setCircleColor(Color.BLUE);
-        dataSet.setCircleRadius(4f);
-        dataSet.setDrawCircleHole(false);
-        dataSet.setDrawValues(false);
+    public ArrayList<String> getAreaCount() {
+        final ArrayList<String> xAxisLabel = new ArrayList<>();
+        xAxisLabel.add("Mon");
+        xAxisLabel.add("Tue");
+        xAxisLabel.add("Wed");
+        xAxisLabel.add("Thu");
+        xAxisLabel.add("Fri");
+        xAxisLabel.add("Sat");
+        xAxisLabel.add("Sun");
 
-        List<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(dataSet);
-
-        LineData lineData = new LineData(dataSets);
-        chart1.setData(lineData);
-        chart1.invalidate();
+        return xAxisLabel ;
     }
 
     private void updateChart() {
-        LineData lineData = chart1.getLineData();
-        if (lineData != null) {
-            lineData.notifyDataChanged();
-            chart1.notifyDataSetChanged();
-            chart1.invalidate();
-        }
-
-        List<Entry> timeDifferences = new ArrayList<>();
-        for (int i = 1; i < entries.size(); i++) {
-            float previousTime = entries.get(i - 1).getY();
-            float currentTime = entries.get(i).getY();
-            float timeDifference = currentTime - previousTime;
-            timeDifferences.add(new Entry(i, timeDifference));
-        }
-
-        LineDataSet timeDifferenceDataSet = new LineDataSet(timeDifferences, "Time Differences");
-        timeDifferenceDataSet.setColor(Color.RED);
-        timeDifferenceDataSet.setLineWidth(2f);
-        timeDifferenceDataSet.setCircleColor(Color.RED);
-        timeDifferenceDataSet.setCircleRadius(4f);
-        timeDifferenceDataSet.setDrawCircleHole(false);
-        timeDifferenceDataSet.setDrawValues(false);
-
-        List<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(dataSet);  // Original time results dataset
-        dataSets.add(timeDifferenceDataSet);  // Time differences dataset
-
-        LineData updatedLineData = new LineData(dataSets);
-        chart1.setData(updatedLineData);
+        LineDataSet dataSet = new LineDataSet(entries, "Sleep Tracker");
+        LineData lineData = new LineData(dataSet);
+        chart1.setData(lineData);
         chart1.invalidate();
 
     }

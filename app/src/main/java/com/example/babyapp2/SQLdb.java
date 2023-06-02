@@ -1,6 +1,6 @@
 package com.example.babyapp2;
 
-// Java class named `SQLdb` that extends the `SQLiteOpenHelper` class.
+// Java class SQLdb that extends the `SQLiteOpenHelper` class.
 // It is responsible for managing the SQL database for Junyers.
 // The code is written in Java and is designed to manage an SQLite database
 
@@ -82,6 +82,12 @@ public class SQLdb extends SQLiteOpenHelper {
     public static final String FOOD_ROW_ID = "food_row_id";
     public static final String CHILD_REF_ID = "x_child_id";
 
+    private static final String TABLE_NAME6 = "growth_tracker";
+    private static final String COLUMN_HEIGHT = "height";
+    private static final String COLUMN_WEIGHT = "weight";
+
+
+
 
 
 
@@ -138,6 +144,14 @@ public class SQLdb extends SQLiteOpenHelper {
                         CHILD_REF_ID + " INTEGER);";
         db.execSQL(query5);
 
+        String query6 =
+                "CREATE TABLE " + TABLE_NAME6 +
+                        " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COLUMN_HEIGHT + " INT, " +
+                        COLUMN_WEIGHT + " INT, " +
+                        CHILD_REF_ID + " INTEGER);";
+        db.execSQL(query6);
+
 
     }
 
@@ -148,6 +162,7 @@ public class SQLdb extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME6);
         onCreate(db);
     }
 
@@ -233,6 +248,23 @@ public class SQLdb extends SQLiteOpenHelper {
         dba.close();
 
     }
+
+    void addGrowthTrackerData(int height, int weight, String x_child_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_HEIGHT, height);
+        values.put(COLUMN_WEIGHT, weight);
+        values.put(CHILD_REF_ID, x_child_id);
+        long result = db.insert(TABLE_NAME6, null, values);
+        if (result == -1) {
+            Toast.makeText(context, "Failed to add growth description", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Growth description added", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
     public Boolean checkusername(String username) {
         SQLiteDatabase db = this.getWritableDatabase();

@@ -98,12 +98,19 @@ public class MainActivity extends AppCompatActivity {
     private boolean validatePassword(){
         String val = pass_input.getText().toString().trim();
         String checkPassword =
-                "(.*[0-9])";         //at least 1 digit
+                "(.*[4-9])";         //at least 4 digits
 
         if(val.isEmpty()){
             pass_input.setError("Field is empty");
             return false;
-
+        }
+        else if (val.length() < 3) {
+            username_input.setError("Username is too short!");
+            return false;
+        }
+        else if (val.length() > 10) {
+            username_input.setError("Username is too long!");
+            return false;
         }
         else if (!val.matches(checkPassword)){
             pass_input.setError("Password should only be a pin");

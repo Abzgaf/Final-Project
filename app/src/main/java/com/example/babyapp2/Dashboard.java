@@ -133,6 +133,15 @@ public class Dashboard extends AppCompatActivity {
         growth_pic = findViewById(R.id.growth_pic);
         growth_text = findViewById(R.id.growth_text);
         //c5
+        c5 = findViewById(R.id.c5);
+
+        c5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, GrowthTracker.class);
+                startActivity(intent);
+            }
+        });
 
 
         ar_pic = findViewById(R.id.ar_pic);

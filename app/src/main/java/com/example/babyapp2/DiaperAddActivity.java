@@ -14,6 +14,7 @@ package com.example.babyapp2;
 
 import static com.example.babyapp2.MyAdapter.x_child_id;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -73,6 +74,9 @@ public class DiaperAddActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
     }
 

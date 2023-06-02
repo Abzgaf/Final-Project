@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:fontFamily="@font/annie_use_your_telescope"
         android:padding="2dp"
         android:text="Food Name"
         android:textColor="#02579A"
@@ -56,17 +57,18 @@
     <!--calories text-->
     <TextView
         android:id="@+id/f_cal_txt"
-        android:text="cal_text"
-        android:textColor="#02579A"
-        android:layout_marginTop="16dp"
-        android:textSize="15dp"
-        android:layout_toRightOf="@+id/food_cal"
-        android:layout_below="@+id/food_date"
-        android:gravity="right"
-        android:layout_marginLeft="2dp"
-        android:textAlignment="gravity"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food_date"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/food_cal"
+        android:gravity="right"
+        android:text="Calorie(s)"
+        android:textAlignment="gravity"
+        android:textColor="#3F51B5"
+        android:textSize="15dp" />
 
 
     <!--android:layout_alignBaseline="@+id/calories"-->
