@@ -1,5 +1,17 @@
 package com.example.babyapp2;
 
+//The GrowthTracker class that helps track a baby's growth in terms of height and weight.
+// This class displays a chart that shows the baby's weight over time and allows users to input new height and weight measurements.
+
+// The onAddEntryButtonClick() method is called when the user clicks on the "Add Entry" button.
+// It adds the new height and weight data to the SQL database and updates the chart with the new data.
+// The createSet() method creates a new LineDataSet for the chart, which is used to store the baby's weight data.
+// The calculateZScore() method calculates the baby's Z-score, which is a statistical measurement that indicates how far a data point is from the mean of a distribution. In this case, it calculates how far the baby's height or weight is from the expected value for their age and sex.
+// The calculateExpectedMeasurement() method calculates the expected height or weight for a given age and sex using the World Health Organization (WHO) growth standards.
+// The calculateStandardDeviation() method calculates the standard deviation for a given age and sex, which is a measure of how spread out the data points are in a distribution.
+// The calculateZ0() method calculates the Z0 value for a given age and sex, which is an intermediate value used in the calculation of the expected measurement and standard deviation.
+
+
 import static com.example.babyapp2.MyAdapter.x_child_id;
 
 import androidx.appcompat.app.ActionBar;
@@ -25,7 +37,6 @@ public class GrowthTracker extends AppCompatActivity {
     public LineChart chart;
     public EditText height;
     public EditText weight;
-    SQLdb db;
 
     // Constants for the WHO growth standards
     private static final double L = 1.0378;
@@ -65,8 +76,6 @@ public class GrowthTracker extends AppCompatActivity {
         String heightString = height.getText().toString();
         String weightString = weight.getText().toString();
 
-
-
         if (TextUtils.isEmpty(heightString) || TextUtils.isEmpty(weightString)) {
             Toast.makeText(this, "Please enter height and weight", Toast.LENGTH_SHORT).show();
             return;
@@ -76,9 +85,7 @@ public class GrowthTracker extends AppCompatActivity {
         float height = Float.parseFloat(heightString);
         float weight = Float.parseFloat(weightString);
 
-
         LineData data = chart.getData();
-
         if (data != null) {
             ILineDataSet set = data.getDataSetByIndex(0);
 
@@ -110,27 +117,21 @@ public class GrowthTracker extends AppCompatActivity {
     }
 
     public static double calculateZScore(double measurement, double ageInMonths, double sex) {
-        // Calculate the expected measurement for the given age and sex
+
         double expectedMeasurement = calculateExpectedMeasurement(ageInMonths, sex);
-
-        // Calculate the standard deviation for the given age and sex
         double standardDeviation = calculateStandardDeviation(ageInMonths, sex);
-
-        // Calculate the z-score using the formula (measurement - expectedMeasurement) / standardDeviation
         return (measurement - expectedMeasurement) / standardDeviation;
     }
 
-    // Calculate the expected measurement for a given age and sex
+
     private static double calculateExpectedMeasurement(double ageInMonths, double sex) {
         return L * Math.pow(M, 1 - L) * Math.pow(ageInMonths, L) * Math.exp(S * calculateZ0(ageInMonths, sex));
     }
 
-    // Calculate the standard deviation for a given age and sex
     private static double calculateStandardDeviation(double ageInMonths, double sex) {
         return M * Math.exp(S * calculateZ0(ageInMonths, sex));
     }
 
-    // Calculate the Z0 value for a given age and sex
     private static double calculateZ0(double ageInMonths, double sex) {
         double sexFactor = (sex == 1) ? 0 : 1;
         return (Math.log(ageInMonths) - Math.log(M) - sexFactor * S) / L;
