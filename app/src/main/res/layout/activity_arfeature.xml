@@ -18,13 +18,24 @@
         android:layout_margin="20dp"
         android:layout_marginHorizontal="10dp"
         android:background="#FFFFFF">
+
         <Spinner
             style="@style/Widget.AppCompat.DropDownItem.Spinner"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/model_dropdown"
             />
+
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/info_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@id/info_btn"
+        android:layout_marginTop="100dp"
+        android:text="Button"
+        app:icon="@drawable/ic_baseline_question_mark_24" />
 
     <SeekBar
         android:id="@+id/model_slider"

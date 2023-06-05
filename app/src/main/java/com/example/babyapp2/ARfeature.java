@@ -17,8 +17,10 @@ package com.example.babyapp2;
 
 // The activity listens for changes in the dropdown menu (spinner) and updates the renderable of the TransformableNode to the selected 3D model.
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -27,6 +29,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListPopupWindow;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -48,26 +51,38 @@ import java.util.List;
 
 public class ARfeature extends AppCompatActivity {
 
-    private ArFragment arFragment;
-    private AnchorNode myanchornode;
+    public ArFragment arFragment;
+    public AnchorNode myanchornode;
     TransformableNode mytranode = null;
 
-    private SeekBar model_slider;
-    private Spinner model_dropdown;
-    private float mySize = 70f;
+
+    public Button info_btn;
+    public SeekBar model_slider;
+    public Spinner model_dropdown;
+    public float mySize = 70f;
 
     int[] glb_source = {R.raw.baby};
     String[] arr_models = {"Baby Model"};
-    private ModelRenderable[] renderable_models = new ModelRenderable[glb_source.length];
+    public ModelRenderable[] renderable_models = new ModelRenderable[glb_source.length];
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arfeature);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        info_btn = findViewById(R.id.info_btn);
+        info_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ARfeature.this, InfoScreen.class);
+                startActivity(intent);
+            }
+        });
+
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
         model_dropdown = findViewById(R.id.model_dropdown);
         model_slider = findViewById(R.id.model_slider);
@@ -164,6 +179,9 @@ public class ARfeature extends AppCompatActivity {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 }
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Steps on how to carry a baby:"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <me.biubiubiu.justifytext.library.JustifyTextView
+        android:id="@+id/info_txt"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/_1_support_the_baby_s_head_babies_have_limited_head_n_and_neck_control_in_the_early_months_place_one_hand_n_under_the_baby_s_head_and_neck_to_support_it_properly_n_n_2_slide_one_hand_under_the_baby_s_bottom_gently_n_slide_your_other_hand_under_the_baby_s_bottom_to_n_provide_additional_support_make_sure_to_keep_your_n_hand_flat_and_use_your_arm_for_support_n_n_3_lift_the_baby_use_your_arms_keeping_them_close_to_n_your_body_to_lift_the_baby_smoothly_and_slowly_n_maintain_a_firm_but_gentle_grip_on_the_baby_to_ensure_n_stability_n_n_4_hold_the_baby_against_your_chest_bring_the_baby_n_close_to_your_body_nestling_them_against_your_chest_n_this_position_promotes_bonding_and_provides_a_n_sense_of_security_for_the_baby_n_n_5_check_the_baby_s_position_ensure_the_baby_s_face_n_is_visible_and_they_can_breathe_freely_the_baby_s_n_head_should_rest_comfortably_against_your_shoulder_n_or_the_crook_of_your_arm_with_their_chin_lifted_slightly_n_n_6_secure_the_baby_s_body_use_your_arm_and_hand_to_n_provide_support_to_the_baby_s_body_keeping_them_n_close_to_you_avoid_any_sudden_or_jerky_movements_n_n_7_maintain_eye_contact_and_talk_soothingly_babies_n_find_comfort_in_seeing_your_face_and_hearing_your_n_voice_maintain_eye_contact_and_speak_softly_to_n_provide_reassurance_and_build_a_connection_n_n_8_be_mindful_of_your_movements_when_carrying_a_baby_n_move_slowly_and_gently_avoid_sudden_twists_or_turns_n_that_could_jolt_the_baby_or_make_them_feel_unstable_n"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading"
+        tools:ignore="MissingConstraints">
+
+    </me.biubiubiu.justifytext.library.JustifyTextView>
+</androidx.constraintlayout.widget.ConstraintLayout>

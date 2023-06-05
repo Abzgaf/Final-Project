@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation "com.gorisse.thomas.sceneform:sceneform:1.21.0"
 
-
+    implementation 'me.biubiubiu.justifytext:library:1.1'
 }
 
 
