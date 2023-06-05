@@ -30,10 +30,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.text.ParseException;
@@ -55,7 +58,6 @@ public class SleepActivity extends AppCompatActivity {
 
     public LineChart chart1;
     private List<Entry> entries;
-    private LineDataSet dataSet;
 
 
     @SuppressLint("MissingInflatedId")
@@ -79,8 +81,8 @@ public class SleepActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                entries.add(new Entry(day, System.currentTimeMillis()));
+                long currentTimeMillis = System.currentTimeMillis();
+               entries.add(new Entry(currentTimeMillis, entries.size()));
                 stop.setEnabled(true);
                 start.setEnabled(false);
 
@@ -90,17 +92,18 @@ public class SleepActivity extends AppCompatActivity {
                 time1.setText(currentDateTimeString);
                 startTime = System.currentTimeMillis();
 
+                updateChart();
+
             }
         });
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                entries.add(new Entry(day, System.currentTimeMillis()));
+                long currentTimeMillis = System.currentTimeMillis();
+                entries.add(new Entry(currentTimeMillis, entries.size()));
                 stop.setEnabled(false);
                 start.setEnabled(true);
-                day++;
-                updateChart();
 
                 final Date d1= new Date();
                 SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
@@ -114,12 +117,10 @@ public class SleepActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                long difference = (stopTime - startTime)/1000;
-                entries.add(new Entry(entries.size(), difference));
                 stopTime = System.currentTimeMillis();
                 //populateChart();
                 updateChart();
+
 
 
             }
@@ -128,7 +129,14 @@ public class SleepActivity extends AppCompatActivity {
         XAxis xAxis = chart1.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
+        xAxis.setTextSize(12f);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(getAreaCount()));
+
+        YAxis leftAxis = chart1.getAxisLeft();
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setTextSize(12f);
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -145,10 +153,10 @@ public class SleepActivity extends AppCompatActivity {
         xAxisLabel.add("Sat");
         xAxisLabel.add("Sun");
 
-        return xAxisLabel ;
+        return xAxisLabel;
     }
 
-    private void updateChart() {
+        private void updateChart() {
         LineDataSet dataSet = new LineDataSet(entries, "Sleep Tracker");
         LineData lineData = new LineData(dataSet);
         chart1.setData(lineData);
