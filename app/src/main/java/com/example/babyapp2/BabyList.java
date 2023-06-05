@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +31,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -62,6 +60,7 @@ public class BabyList extends AppCompatActivity {
         add = findViewById(R.id.add);
         cry_img = findViewById(R.id.cry_img);
         nodata_txt = findViewById(R.id.nodata_txt);
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

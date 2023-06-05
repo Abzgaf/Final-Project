@@ -95,7 +95,7 @@ public class ARfeature extends AppCompatActivity {
                     if (renderable_models[model_dropdown.getSelectedItemPosition()] == null) {
                         return;
                     }
-                    // Create the Anchor.
+
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
@@ -104,17 +104,17 @@ public class ARfeature extends AppCompatActivity {
 
                     myanchornode = anchorNode;
 
-                    // Create the transformable andy and add it to the anchor.
-                    TransformableNode andy;
+
+                    TransformableNode transformableNode;
                     if(mytranode == null)
-                        andy = new TransformableNode(arFragment.getTransformationSystem());
-                    else andy = mytranode;
+                        transformableNode = new TransformableNode(arFragment.getTransformationSystem());
+                    else transformableNode = mytranode;
 
-                    andy.setParent(anchorNode);
-                    andy.setRenderable(renderable_models[model_dropdown.getSelectedItemPosition()]);
-                    andy.select();
+                    transformableNode.setParent(anchorNode);
+                    transformableNode.setRenderable(renderable_models[model_dropdown.getSelectedItemPosition()]);
+                    transformableNode.select();
 
-                    mytranode = andy;
+                    mytranode = transformableNode;
                     mytranode.setLocalRotation(new Quaternion(0f, 0f, 0f, 1f));
                     myanchornode.setLocalScale(new Vector3(mySize/70f, mySize/70f, mySize/70f));
                 });

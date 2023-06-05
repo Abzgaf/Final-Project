@@ -39,8 +39,8 @@ public class AddingActivity extends AppCompatActivity {
     Button add_button;
 
     boolean[] selectedLanguage;
-    ArrayList<Integer> langList = new ArrayList<>();
-    String[] langArray = {"Boy", "Girl"};
+    ArrayList<Integer> genderList = new ArrayList<>();
+    String[] genderArray = {"Boy", "Girl"};
 
 
 
@@ -53,56 +53,48 @@ public class AddingActivity extends AppCompatActivity {
         baby_age = findViewById(R.id.baby_age);
         baby_gender = findViewById(R.id.baby_gender);
         add_button = findViewById(R.id.add_button);
-        selectedLanguage = new boolean[langArray.length];
+        selectedLanguage = new boolean[genderArray.length];
 
         baby_gender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                // Initialize alert dialog
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddingActivity.this);
-
-                // set title
                 builder.setTitle("Select gender");
-
-                // set dialog non cancelable
                 builder.setCancelable(false);
 
-                builder.setMultiChoiceItems(langArray, selectedLanguage, new DialogInterface.OnMultiChoiceClickListener() {
+                builder.setMultiChoiceItems(genderArray, selectedLanguage, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        // check condition
+
                         if (b) {
                             // when checkbox selected
                             // Add position  in lang list
-                            langList.add(i);
+                            genderList.add(i);
                             // Sort array list
-                            Collections.sort(langList);
+                            Collections.sort(genderList);
                         } else {
                             // when checkbox unselected
                             // Remove position from langList
-                            langList.remove(Integer.valueOf(i));
+                            genderList.remove(Integer.valueOf(i));
                         }
                     }
                 });
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // Initialize string builder
                         StringBuilder stringBuilder = new StringBuilder();
-                        // use for loop
-                        for (int j = 0; j < langList.size(); j++) {
+                        for (int j = 0; j < genderList.size(); j++) {
                             // concat array value
-                            stringBuilder.append(langArray[langList.get(j)]);
-                            // check condition
-                            if (j != langList.size() - 1) {
+                            stringBuilder.append(genderArray[genderList.get(j)]);
+                            if (j != genderList.size() - 1) {
                                 // When j value  not equal
                                 // to lang list size - 1
                                 // add comma
                                 stringBuilder.append(", ");
                             }
                         }
-                        // set text on textView
                         baby_gender.setText(stringBuilder.toString());
                     }
                 });
@@ -132,11 +124,8 @@ public class AddingActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // use for loop
                         for (int j = 0; j < selectedLanguage.length; j++) {
-                            // remove all selection
                             selectedLanguage[j] = false;
-                            // clear language list
-                            langList.clear();
-                            // clear text view value
+                            genderList.clear();
                             baby_gender.setText("");
                         }
                     }

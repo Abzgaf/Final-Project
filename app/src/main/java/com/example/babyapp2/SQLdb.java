@@ -24,7 +24,6 @@ package com.example.babyapp2;
 //13. It defines a method `deleteAllNames` to delete all baby profiles from the database.
 
 
-import static com.example.babyapp2.MyAdapter.x_child_id;
 import static com.example.babyapp2.MainActivity.x;
 
 import android.annotation.SuppressLint;
@@ -85,10 +84,6 @@ public class SQLdb extends SQLiteOpenHelper {
     private static final String TABLE_NAME6 = "growth_tracker";
     private static final String COLUMN_HEIGHT = "height";
     private static final String COLUMN_WEIGHT = "weight";
-
-
-
-
 
 
 
@@ -230,21 +225,16 @@ public class SQLdb extends SQLiteOpenHelper {
     void addFoodTrackerData(FoodClass food, String x_child_id){
         SQLiteDatabase dba = this.getWritableDatabase();
 
-        //key value pair object//
         ContentValues values = new ContentValues();
         values.put(COLUMN_FOOD, food.getFoodName());
         values.put(COLUMN_CAL, food.getCalories());
-        //ask Android OS to give date//
         values.put(COLUMN_DATE, System.currentTimeMillis());
         values.put(CHILD_REF_ID, x_child_id);
 
-        //inserting food into our table//
         dba.insert(TABLE_NAME5, null, values);
 
-        //checking if food object has been added to the db//
         Log.v("Added Food item", "It worked!!");
 
-        //close db//
         dba.close();
 
     }
@@ -292,20 +282,10 @@ public class SQLdb extends SQLiteOpenHelper {
     public int getTotalFoodItems() {
 
         int totalItems = 0;
-
-        //selecting all from our table//
         String query = "SELECT * FROM food_tracker WHERE x_child_id = 2";
-        //SQLite db instance - so we are able to use our db//
         SQLiteDatabase dba = this.getReadableDatabase();
-        //wanting everything returned from table//
-        //cursor holds all of the database rows//
-        //The purpose of a cursor is to point to a single row of the result fetched by the query//
-        //We load the row pointed by the cursor object//
-        Cursor cursor = dba.rawQuery(query, null);
-        //rawQuery() directly accepts an SQL select statement as input//
-        //The method returns 'Cursor' object which points to one row of the query result//
 
-        //cursor holds all of the databse rows//
+        Cursor cursor = dba.rawQuery(query, null);
         totalItems = cursor.getCount();
 
         cursor.close();
@@ -313,7 +293,6 @@ public class SQLdb extends SQLiteOpenHelper {
         return totalItems;
     }
 
-    //select* from sleep_tracker where baby_name = " x baby_name "
 
     Cursor getSleepTrackerData(){
         String query = "SELECT * FROM  sleep_tracker where baby_name ='"+ x +"'";
@@ -329,20 +308,14 @@ public class SQLdb extends SQLiteOpenHelper {
         int cals = 0;
 
         SQLiteDatabase dba = this.getReadableDatabase();
-
-        //getting sum of calories column//
         String query = "SELECT SUM( " + COLUMN_CAL + " ) " +
                 "FROM " + TABLE_NAME5;
 
         Cursor cursor = dba.rawQuery(query, null);
-
-        //if there is something there in the cursor then we are going to get the id at index 0//
-
         if (cursor.moveToFirst()) {
             cals = cursor.getInt(0);
         }
 
-        //close rows and db//
         cursor.close();
         dba.close();
 
@@ -353,24 +326,15 @@ public class SQLdb extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public ArrayList<FoodClass> getFoods(){
 
-        //clear our array we created before we add anything so nothing from previous query//
         foodList.clear();
-
-        //reading from database//
         SQLiteDatabase db = this.getReadableDatabase();
-
-        //create new string array of everything want to get from the db//
         Cursor cursor = db.query(TABLE_NAME5,
                 new String[]{FOOD_ROW_ID, COLUMN_FOOD, COLUMN_CAL,
                         COLUMN_DATE}, null, null, null, null, COLUMN_DATE + " DESC ");
 
-        //loop through cursor, now it has all items from db//
-        //Cursor is an object that can iterate on the result rows of your query - cursor can move to each row//
-        //move to first moves cursor to the first result//
         if (cursor.moveToFirst()) {
             do {
 
-                //create instance of our food item//
                 FoodClass food = new FoodClass();
                 food.setFoodName(cursor.getString(cursor.getColumnIndex(COLUMN_FOOD)));
                 food.setCalories(cursor.getInt(cursor.getColumnIndex(COLUMN_CAL)));
@@ -437,7 +401,6 @@ public class SQLdb extends SQLiteOpenHelper {
 
         SQLiteDatabase dba = this.getWritableDatabase();
         dba.delete(TABLE_NAME5, FOOD_ROW_ID + " = ?",
-                //convert id int into string - as putting into string array//
                 new String[]{String.valueOf(id)});
 
         dba.close();

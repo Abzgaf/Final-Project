@@ -21,7 +21,6 @@ package com.example.babyapp2;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import static com.example.babyapp2.MainActivity.x;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -94,28 +93,18 @@ public class UpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Initialize alert dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(UpdateActivity.this);
-
-                // set title
                 builder.setTitle("Select gender");
-
-                // set dialog non cancelable
                 builder.setCancelable(false);
 
                 builder.setMultiChoiceItems(langArray, selectedLanguage, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        // check condition
+
                         if (b) {
-                            // when checkbox selected
-                            // Add position  in lang list
                             langList.add(i);
-                            // Sort array list
                             Collections.sort(langList);
                         } else {
-                            // when checkbox unselected
-                            // Remove position from langList
                             langList.remove(Integer.valueOf(i));
                         }
                     }
@@ -123,21 +112,16 @@ public class UpdateActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // Initialize string builder
                         StringBuilder stringBuilder = new StringBuilder();
-                        // use for loop
+
                         for (int j = 0; j < langList.size(); j++) {
-                            // concat array value
+
                             stringBuilder.append(langArray[langList.get(j)]);
-                            // check condition
+
                             if (j != langList.size() - 1) {
-                                // When j value  not equal
-                                // to lang list size - 1
-                                // add comma
                                 stringBuilder.append(", ");
                             }
                         }
-                        // set text on textView
                         baby_gender_upd.setText(stringBuilder.toString());
                     }
                 });
@@ -152,18 +136,13 @@ public class UpdateActivity extends AppCompatActivity {
                 builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // use for loop
                         for (int j = 0; j < selectedLanguage.length; j++) {
-                            // remove all selection
                             selectedLanguage[j] = false;
-                            // clear language list
                             langList.clear();
-                            // clear text view value
                             baby_gender_upd.setText("");
                         }
                     }
                 });
-                // show dialog
                 builder.show();
 
             }

@@ -108,8 +108,8 @@ public class DiaperAddActivity extends AppCompatActivity {
     }
 
     void findId() {
-        rb_cloth=(RadioButton) findViewById(R.id.cloth);
-        rb_disposable=(RadioButton) findViewById(R.id.disposable);
+        rb_cloth= findViewById(R.id.cloth);
+        rb_disposable= findViewById(R.id.disposable);
         btn_save = findViewById(R.id.btn_save);
         btn_cancel = findViewById(R.id.btn_cancel);
     }

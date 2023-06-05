@@ -4,15 +4,15 @@ package com.example.babyapp2;
 
 // The class has several private variables such as a SQL database object, an ArrayList of FoodClass objects, a FoodAdapter object, a ListView object
 // , and TextView objects for displaying the total calories and total food items.
-//
+
 
 // It then calls the FoodList() method, which retrieves food items from the SQL database and populates the ArrayList with them.
 // The total calorie count and total number of food items are also calculated and displayed using the TextView objects.
-//
+
 // The FoodAdapter object is then created using the FoodAdapter class,
 // which is responsible for inflating the food_row layout and populating it with data from the ArrayList.
 // The ListView object is then set to use the FoodAdapter object to display the food items.
-//
+
 // The class overrides the onCreateOptionsMenu() and onOptionsItemSelected() methods to create a menu with options to navigate back to the home screen,
 // view the food diary, or add a new food item.
 

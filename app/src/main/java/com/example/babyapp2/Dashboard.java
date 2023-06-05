@@ -71,17 +71,12 @@ public class Dashboard extends AppCompatActivity {
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLdb db = new SQLdb(Dashboard.this);
-
-                /*if(db.checkTableEmpty()) {
-                    Intent intent = new Intent(Dashboard.this, AddingActivity.class);
-                    startActivity(intent);
-                }else{}*/
                     Intent intent = new Intent(Dashboard.this, BabyList.class);
                     startActivity(intent);
 
                 }
         });
+
         textView = findViewById(R.id.textView);
         textView2 = findViewById(R.id.textView2);
         imageView2 = findViewById(R.id.imageView2);
@@ -132,7 +127,7 @@ public class Dashboard extends AppCompatActivity {
         });
         growth_pic = findViewById(R.id.growth_pic);
         growth_text = findViewById(R.id.growth_text);
-        //c5
+
         c5 = findViewById(R.id.c5);
 
         c5.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +137,6 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         ar_pic = findViewById(R.id.ar_pic);
         ar_text = findViewById(R.id.ar_text);

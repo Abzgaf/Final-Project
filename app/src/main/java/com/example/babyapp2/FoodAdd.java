@@ -40,8 +40,6 @@ public class FoodAdd extends AppCompatActivity {
         food_cal = findViewById(R.id.cal_txt);
         btn_submit = findViewById(R.id.btn_submit);
 
-        Intent intent = getIntent();
-
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

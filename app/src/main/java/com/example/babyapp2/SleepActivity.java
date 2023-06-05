@@ -1,4 +1,22 @@
 package com.example.babyapp2;
+
+// SleepActivity class with its main purpose to track the user's sleep time and display it on a LineChart.
+
+// The class initializes TextViews (time1 and time2), Buttons (start and stop), a LineChart (chart1), and other variables needed for the chart.
+// In the onCreate() method, the activity sets the layout, finds the views by their IDs, and initializes the chart settings, such as touch and drag interactions.
+
+// The start button's onClick() method is defined to add the current timestamp to the entries list, disable the start button, and enable the stop button.
+// It also sets the time1 TextView to display the current time.
+
+// The stop button's onClick() method is defined to add the current timestamp to the entries list, disable the stop button, enable the start button,
+// and increment the day variable. It then calls the updateChart() method to update the chart with the new data.
+// The time2 TextView is set to display the current time, and the sleep data is added to an SQL database.
+
+// The X-axis of the chart is set up with labels for each day of the week using the getAreaCount() method.
+
+// The updateChart() method creates a LineDataSet with the sleep tracker data, sets the chart data, and invalidates the chart to redraw it with the updated data.
+
+
 import static com.example.babyapp2.MyAdapter.x_child_id;
 
 
@@ -6,40 +24,21 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.format.DateUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

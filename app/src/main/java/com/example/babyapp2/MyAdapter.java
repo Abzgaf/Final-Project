@@ -16,15 +16,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -95,17 +92,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>  {
             }
         });
 
-        /*holder.mainProfileListLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(context, UpdateActivity.class);
-                intent.putExtra("id", String.valueOf(id.get(position)));
-                intent.putExtra("name", String.valueOf(baby_name.get(position)));
-                intent.putExtra("age", String.valueOf(baby_age.get(position)));
-                intent.putExtra("gender", String.valueOf(baby_gender.get(position)));
-                activity.startActivityForResult(intent, 1);
-            }
-        });*/
     }
 
     @Override
