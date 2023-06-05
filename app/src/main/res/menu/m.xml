@@ -7,4 +7,9 @@
         android:icon="@drawable/garbage"
         android:title="Delete All"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/loginHome"
+        android:icon="@drawable/ic_baseline_login_24"
+        android:title="Login"
+        app:showAsAction="ifRoom" />
 </menu>

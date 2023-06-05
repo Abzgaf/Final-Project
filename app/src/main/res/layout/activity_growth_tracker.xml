@@ -35,8 +35,8 @@
             android:id="@+id/add_entry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Entry"
-            android:onClick="onAddEntryButtonClick"/>
+            android:onClick="onAddEntryButtonClick"
+            android:text="Add" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"

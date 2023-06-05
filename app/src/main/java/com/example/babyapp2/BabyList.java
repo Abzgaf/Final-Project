@@ -117,6 +117,10 @@ public class BabyList extends AppCompatActivity {
         if(item.getItemId() == R.id.delete_all){
             deleteAllConfirmation();
         }
+        if(item.getItemId() == R.id.loginHome){
+            Intent intentHome = new Intent(this, MainActivity.class);
+            startActivity(intentHome);
+        }
         return super.onOptionsItemSelected(item);
     }
 
