@@ -17,10 +17,12 @@ package com.example.babyapp2;
 
 // The activity listens for changes in the dropdown menu (spinner) and updates the renderable of the TransformableNode to the selected 3D model.
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -183,6 +185,7 @@ public class ARfeature extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
     }
+
 }
 
 
